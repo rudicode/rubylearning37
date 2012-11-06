@@ -32,14 +32,19 @@ def k_to_f kelvin
   c_to_f(k_to_c(kelvin))
 end
 
-puts "Temperature converter."
-puts "Input the temperature you wish to convert using the following syntax:"
-puts "\n32 F to C        converts 32 Fahrenheit to Celsius"
-puts "37 C to F        converts 37 Celsius to Fahrenheit"
-puts "32 F to K        converts 32 Fahrenheit to Kelvin"
-puts "\nq                Quits\n\n"
+puts <<LIST_INSTRUCTIONS
 
-while true
+Temperature converter.
+Input the temperature you wish to convert using the following syntax:
+
+32 F to C        converts 32 Fahrenheit to Celsius
+37 C to F        converts 37 Celsius to Fahrenheit
+32 F to K        converts 32 Fahrenheit to Kelvin
+
+q                Quits
+LIST_INSTRUCTIONS
+
+loop do
   
   print "\nConvert: "
   input = gets.chomp.downcase.split(' ')
