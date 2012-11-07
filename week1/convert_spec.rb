@@ -1,52 +1,107 @@
 # require 'rubygems'
 require File.expand_path('../convert', __FILE__)
 
-describe "Conversion" do
-  describe "to Kelvin" do
-
-    it "should convert Fahrenheit to Kelvin" do
-      f_to_k(98.6).should eq(310.15)
-      f_to_k(212.0).should eq(373.15)
-    end
-    
-    it "should convert Celsius to Kelvin" do
-      c_to_k(37.0).should eq(310.15)
-      c_to_k(100.0).should eq(373.15)
-    end
-  
-  end
+describe "should Convert" do
   
   describe "Kelvin to" do
 
-    it "should convert Kelvin to Fahrenheit" do
-      k_to_f(310.15).should eq(98.6)
-      k_to_f(373.15).should eq(212.0)
+    it "Fahrenheit" do
+      convert(310.15,'k','f').should eq(98.6)
+      convert(373.15,'k','f').should eq(212.0)
     end
     
-    it "should convert Kelvin to Celsius" do
-      k_to_c(310.15).should eq(37.0)
-      k_to_c(373.15).should eq(100.0)
+    it "Celsius" do
+      convert(310.15,'k','c').should eq(37.0)
+      convert(373.15,'k','c').should eq(100.0)
     end
     
-    it "should convert Kelvin to Kelvin" do
+    it "Rankine" do
+      convert(0.0,'k','r').should eq(0.0)
+      convert(273.15,'k','r').should be_within(0.00000001).of(491.67)
+        # what is the tolerance here?
+    end
+    
+    it "Kelvin" do
       temp = 1.1
-      k_to_k(temp).should eq(temp)
+      convert(temp,'k','k').should eq(temp)
     end
 
   end
   
-  describe "Celsius" do
+  describe "Celsius to" do
     
-    it "should convert Celsius to Fahrenheit" do
-      c_to_f(0.0).should == 32.0
-      c_to_f(37.0).should == 98.6
-      c_to_f(100.0).should == 212.0
+    it "Fahrenheit" do
+      convert(0.0,'c','f').should == 32.0
+      convert(37.0,'c','f').should == 98.6
+      convert(100.0,'c','f').should == 212.0
     end
     
-    it "should convert Fahrenheit to Celsius" do
-      f_to_c(32.0).should == 0.0
-      f_to_c(98.6).should == 37.0
-      f_to_c(212.0).should == 100.0  
+    it "Kelvin" do
+      convert(37.0,'c','k').should eq(310.15)
+      convert(100.0,'c','k').should eq(373.15)
+    end
+    
+    it "Rankine" do
+      convert(37.0,'c','r').should eq(558.27)
+      convert(100.0,'c','r').should eq(671.67)
+    end
+    
+  end
+  
+  describe "Fahrenheit to" do
+    it "Kelvin" do
+      convert(98.6,'f','k').should eq(310.15)
+      convert(212.0,'f','k').should eq(373.15)
+    end
+    
+    it "Celsius" do
+      convert(32.0,'f','c').should == 0.0
+      convert(98.6,'f','c').should == 37.0
+      convert(212.0,'f','c').should == 100.0
+    end
+    
+    it "Rankine" do
+      convert(98.6,'f','r').should eq(558.27)
+      convert(212.0,'f','r').should eq(671.67)
+    end
+    
+  end
+
+  describe "Rankine to" do
+
+    it "Kelvin" do
+      convert(0.0,'r','k').should eq(0.0)
+      convert(491.67,'r','k').should eq(273.15)
+    end
+    
+    it "Fahrenheit" do
+      convert(0.0,'r','f').should be_within(0.00000001).of(-459.67)
+      convert(671.67,'r','f').should eq(212.0)
+    end
+    
+    it "Celsius" do
+      convert(0.0,'r','f').should be_within(0.00000001).of(-459.67)
+      convert(671.67,'r','f').should eq(212.0)
+    end
+    
+  end
+  
+  describe "back and forth" do
+    it "for Celsius" do
+      convert(  convert(10.0,'c','k') ,'k','c').should be_within(0.00000001).of(10.0)
+    end
+    
+    it "for Fahrenheit" do
+      convert(  convert(10.0,'f','k') ,'k','f').should be_within(0.00000001).of(10.0)
+    end
+    
+    it "for Rankine" do
+      convert(  convert(10.0,'r','k') ,'k','r').should be_within(0.00000001).of(10.0)
+    end
+    
+    it "for Kelvin" do
+      convert(  convert(10.0,'k','k') ,'k','k').should be_within(0.00000001).of(10.0)
     end
   end
+    
 end

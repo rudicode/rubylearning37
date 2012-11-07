@@ -37,6 +37,16 @@ def k_to_k kelvin
   kelvin
 end
 
+# Rankine to kelvin
+def r_to_k rankine
+  kelvin = rankine * 5 / 9
+end
+
+# Kelvin to Rankine
+def k_to_r kelvin
+  rankine = kelvin * 9 / 5
+end
+
 def convert(temperature, from, to)
   # convert from given units to kelvin
   kelvin = "Incorrect Input"
@@ -45,6 +55,8 @@ def convert(temperature, from, to)
       kelvin = f_to_k(temperature)
     when from == 'c'
       kelvin = c_to_k(temperature)
+    when from == 'r'
+      kelvin = r_to_k(temperature)
     when from == 'k'
       kelvin = temperature
     else
@@ -63,6 +75,8 @@ def convert(temperature, from, to)
       to_temperature = k_to_f(kelvin)
     when to == 'c'
       to_temperature = k_to_c(kelvin)
+    when to == 'r'
+      to_temperature = k_to_r(kelvin)
     when to == 'k'
       to_temperature = kelvin
     return to_temperature

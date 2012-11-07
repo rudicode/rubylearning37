@@ -8,6 +8,7 @@ Input the temperature you wish to convert using the following syntax:
 32 F to C        converts 32 Fahrenheit to Celsius
 37 C to F        converts 37 Celsius to Fahrenheit
 32 F to K        converts 32 Fahrenheit to Kelvin
+32 F to R        converts 32 Fahrenheit to Rankine
 
 q                Quits
 LIST_INSTRUCTIONS
