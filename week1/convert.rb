@@ -1,20 +1,8 @@
 # temperature converter
 
-# Fahrenheit to Celsius
-def f_to_c fahrenheit
-  # assume it's a float
-  ( fahrenheit - 32.0 ) * 5 / 9
-end
-
-# Celsius to Fahrenheit
-def c_to_f celsius
-  # assume it's a float
-  celsius *  9 / 5 + 32
-end
-
 # Fahrenheit to Kelvin
 def f_to_k fahrenheit
-  c_to_k(f_to_c(fahrenheit))
+  ( fahrenheit + 459.67 ) * 5 / 9
 end
 
 # Celsius to Kelvin
@@ -29,7 +17,7 @@ end
 
 # Kelvin to Fahrenheit
 def k_to_f kelvin
-  c_to_f(k_to_c(kelvin))
+  ( kelvin * 9 / 5 )- 459.67
 end
 
 # Kelvin to Kelvin

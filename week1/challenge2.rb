@@ -13,16 +13,18 @@ Input the temperature you wish to convert using the following syntax:
 q                Quits
 LIST_INSTRUCTIONS
 
-while true
+input = ""
+
+until input[0] == 'q'
   
   print "\nConvert: "
   input = gets.chomp.downcase.split(' ')
 
    # puts "Converting #{ input } "  #debuging input
   
-  if input[0] == 'q'
-    break
-  end
+  #if input[0] == 'q'
+  #  break
+  #end
   
   from = input[1]
   to = input[3]
@@ -31,7 +33,7 @@ while true
   
   result = convert(temperature, from, to)
     
-  if result.class != Float #"error"
+  if result.class != Float
     puts "\nError: #{ result }\n *** Sorry I do not know what you mean, by #{ input.join(' ') }\n\n"
   else 
     puts "#{ result } #{ to.to_s.capitalize }"
