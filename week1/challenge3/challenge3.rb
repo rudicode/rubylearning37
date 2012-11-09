@@ -14,14 +14,16 @@ def put_decoration integer, box_length
 
 def multiplication_table (integer, heading = '', decorate = false)
   
-  table =""
+  table = ""
   
-  if integer < 1
+  return table if integer < 0
+    
+  if integer == 0
     table = multiplication_table( 1, heading, decorate )
     table.gsub!('1', "0")  #replace the 1 with a zero, ya I know a hack :)
     return table.chomp
   end
-  
+    
   largest_number = integer * integer
   
   box_length = largest_number.to_s.length
@@ -57,7 +59,9 @@ table1 = multiplication_table 9, 'Times Table to 9', true
 table2 = multiplication_table 20, '', false
 table3 = multiplication_table 1,'Times Table for 1', true
 table4 = multiplication_table 0,'Times Table for 0', true
-puts table1+"\n\n"
-puts table2+"\n\n"
-puts table3+"\n\n"
-puts table4
+table5 = multiplication_table -10 ,'Times Table for -10', true
+puts table1 << "\n\n"
+puts table2 << "\n\n"
+puts table3 << "\n\n"
+puts table4 << "\n\n"
+puts table5
