@@ -40,10 +40,10 @@ describe "Table" do
   20  40  60  80 100 120 140 160 180 200 220 240 260 280 300 320 340 360 380 400"
 
   @table_one =
-" Times Table for 1
- ===
-  1
- ==="
+"Times Table for 1
+===
+ 1
+==="
   end
   
   it "should return a string with the 9 times table" do
