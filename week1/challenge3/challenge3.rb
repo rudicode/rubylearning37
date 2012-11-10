@@ -10,7 +10,7 @@ def put_decoration integer, box_length
     decoration << "="
   end
   decoration << "\n"
-  end
+end
 
 def multiplication_table (integer, heading = '', decorate = false)
   
@@ -44,7 +44,7 @@ def multiplication_table (integer, heading = '', decorate = false)
       table << " " if integer > 1
       table << pad_number((row * column), box_length)
     end
-    table <<"\n"
+    table << "\n"
   end
 
   if decorate
@@ -55,13 +55,13 @@ def multiplication_table (integer, heading = '', decorate = false)
 
 end
 
-table1 = multiplication_table 9, 'Times Table to 9', true
-table2 = multiplication_table 20, '', false
-table3 = multiplication_table 1,'Times Table for 1', true
-table4 = multiplication_table 0,'Times Table for 0', true
-table5 = multiplication_table -10 ,'Times Table for -10', true
-puts table1 << "\n\n"
-puts table2 << "\n\n"
-puts table3 << "\n\n"
-puts table4 << "\n\n"
-puts table5
+tables = [ multiplication_table(9, 'Times Table to 9', true),
+  multiplication_table(20, '', false),
+  multiplication_table(1,'Times Table for 1', true),
+  multiplication_table(0,'Times Table for 0', true),
+  multiplication_table(-10 ,'Times Table for -10', true) ]
+
+tables.each do |table|
+  puts table
+  puts "\n"
+end
