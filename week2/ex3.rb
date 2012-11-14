@@ -17,10 +17,18 @@
 =begin
 doctest: Setup years array
 >> leap_years = [2000, 2400, 1600, 1604, 1608, 1612]
+>> leap_years_1600 = [1600, 1604, 1608, 1612, 1616, 1620, 1624, 1628, 1632, 1636, 1640, 1644, 1648, 1652, 1656, 1660, 1664, 1668, 1672, 1676, 1680, 1684, 1688, 1692, 1696]
+>> leap_years_2000 = [2000, 2004, 2008, 2012, 2016, 2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068, 2072, 2076, 2080, 2084, 2088, 2092, 2096]
 >> non_leap_years = [1901, 1902, 2001, 1998]
->> non_leap_centuries = [1900, 2100, 1500, 100]
+>> non_leap_centuries = [100, 1500, 1700, 1800, 1900, 2100]
 doctest: leap years
 >> leap_years.all? {|year| leap_year?(year) }
+=> true
+doctest: leap years 1600s
+>> leap_years_1600.all? {|year| leap_year?(year) }
+=> true
+doctest: leap years 2000s
+>> leap_years_2000.all? {|year| leap_year?(year) }
 => true
 doctest: non-leap years
 >> non_leap_years.none? {|year| leap_year?(year) }
@@ -39,32 +47,25 @@ MINUTES_IN_ONE_DAY = 1440
 
 #
 # A year will be a leap year if it is divisible by 4 but not by 100.
-# If a year is divisible by 4 and by 100, it is not a leap year unless
-# it is also divisible by 400.
+# A leap year is also a every year divisible by 400.
 #
+
 def leap_year? year
-  if year % 4 == 0 && year % 100 == 0
-    year % 400 == 0
-  else
-    year % 4 == 0 && year % 100 != 0
-  end
+  year % 4 == 0 && year % 100 != 0 || year % 400 == 0
 end
 
 def minutes_in_year year
   leap_year?(year) ? MINUTES_IN_ONE_DAY * 366 : MINUTES_IN_ONE_DAY * 365
 end
 
+
 begin
 
-  1998.upto(2012).each do |year|
-    if leap_year? year
-      puts "#{ year } IS a leap year"
-    else
-      puts  "    #{ year } is NOT a leap year"
-    end
-    
+  1880.upto(2012).each do |year|
+    leap_year?(year) ? print("#{ year } IS") : print("    #{ year } IS NOT")
+    puts " a leap year"
   end
-  
+
   1998.upto(2013).each do |year|
     minutes = minutes_in_year year
     #puts "Year #{ year } has #{ minutes } minutes, or #{ minutes / MINUTES_IN_ONE_DAY } days."
@@ -72,4 +73,3 @@ begin
   end
 
 end if __FILE__ == $0
-
