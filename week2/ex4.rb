@@ -1,15 +1,10 @@
-#puts (expand = defined?( expand ) ? expand : true)
+#!/usr/bin/env ruby
 
+puts expand = defined?( expand ) ? expand : true
+# => nil
+# Why??
 
+#defined? is an operator in ruby, like and, or, and not
+#but it returns "nil" if the argument , in this case "expand", is not defined.
+#the above is an assignment during an if like this:
 
-def what_is_expand
-  if defined?( expand )
-    expand
-  else
-    true
-  end
-end
-expand = "a"
-puts what_is_expand
-expand = false
-puts what_is_expand
