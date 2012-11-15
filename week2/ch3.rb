@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 #
-# TODO: randomize string_with_1015_lines
-#
+
 string_with_11_lines = "Lorem ipsum dolor sit amet,
 consectetuer adipiscing elit.
 Duis imperdiet sem eu quam.
@@ -15,8 +14,9 @@ Suspendisse tincidunt ullamcorper tellus.
 In ornare lacus ut turpis."
 
 # setup multi line string
-string_with_1015_lines = ""
-1.upto(1015) {|x| string_with_1015_lines << "Lorem ipsum dolor sit amet,\n" }
+temp_array = string_with_11_lines.split("\n")
+long_string = ""
+1.upto(1015) { |x| long_string << temp_array[rand(temp_array.size)] + "\n" }
 
 
 def add_line_numbers input_string, leading_zero = nil
@@ -31,6 +31,8 @@ def add_line_numbers input_string, leading_zero = nil
   output
 end
 
-puts add_line_numbers(string_with_11_lines)
+puts "Starting 11 Lines"
+puts add_line_numbers(string_with_11_lines, true)
 
-puts add_line_numbers(string_with_1015_lines)
+puts "Starting 1015 Lines"
+puts add_line_numbers(long_string)
