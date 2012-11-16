@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #
 
-string_with_11_lines = "Lorem ipsum dolor sit amet,
+string_with_10_lines = "Lorem ipsum dolor sit amet,
 consectetuer adipiscing elit.
 Duis imperdiet sem eu quam.
 Donec bibendum tincidunt purus.
@@ -10,13 +10,12 @@ Nunc accumsan varius elit.
 Aenean sit amet magna eget odio ornare vulputate.
 Ut ullamcorper tellus non magna.
 Sed non arcu vel libero posuere ultricies.
-Suspendisse tincidunt ullamcorper tellus.
-In ornare lacus ut turpis."
+In ornare lacus ut turpis.\n"
 
 # setup multi line string
-temp_array = string_with_11_lines.split("\n")
-long_string = ""
-1.upto(1015) { |x| long_string << temp_array[rand(temp_array.size)] + "\n" }
+# temp_array = string_with_11_lines.split("\n")
+# long_string = ""
+# 1.upto(1015) { |x| long_string << temp_array[rand(temp_array.size)] + "\n" }
 
 
 def add_line_numbers input_string, leading_zero = nil
@@ -31,8 +30,8 @@ def add_line_numbers input_string, leading_zero = nil
   output
 end
 
-puts "Starting 11 Lines"
-puts add_line_numbers(string_with_11_lines, true)
-
-puts "Starting 1015 Lines"
-puts add_line_numbers(long_string)
+puts "Starting 10 Lines"
+puts add_line_numbers(string_with_10_lines, true)
+sleep(5)
+puts "Starting 100 Lines"
+puts add_line_numbers(string_with_10_lines * 10)
