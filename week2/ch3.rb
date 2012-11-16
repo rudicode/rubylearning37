@@ -12,22 +12,17 @@ Ut ullamcorper tellus non magna.
 Sed non arcu vel libero posuere ultricies.
 In ornare lacus ut turpis.\n"
 
-# setup multi line string
-# temp_array = string_with_11_lines.split("\n")
-# long_string = ""
-# 1.upto(1015) { |x| long_string << temp_array[rand(temp_array.size)] + "\n" }
-
+def digit_size string
+  string.lines.count.to_s.size
+end
 
 def add_line_numbers input_string, leading_zero = nil
-  digit_length = input_string.lines.count.to_s.size
-  leading_zero = "0" if leading_zero
-  output = ""
+  digit_length = digit_size input_string
+  leading_zero &&= 0
 
-  input_string.split("\n").each_with_index do |line, index|
-    output << "Line %#{ leading_zero }#{ digit_length }d: " % index.next
-    output << "%s\n" % line
+  input_string.split("\n").map.with_index do |line, index|
+    "Line %#{ leading_zero }#{ digit_length }d: %s" % [index.next, line]
   end
-  output
 end
 
 puts "Starting 10 Lines"
