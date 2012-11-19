@@ -7,9 +7,12 @@ end
 filename = ARGV[0]
 puts "Updating file: #{ filename } "
 #
-# need error checking if file exists
-file = File.new(filename, "r+")
-text_out = update_word(file.read)
-file.rewind
-file.write(text_out)
-file.close
+if File.exist?(filename)
+  file = File.new(filename, "r+")
+  text_out = update_word(file.read)
+  file.rewind
+  file.write(text_out)
+  file.close
+else
+  puts "File: '#{ filename }' does not exist"
+end
