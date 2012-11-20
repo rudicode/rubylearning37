@@ -30,68 +30,76 @@ def count_paragraphs line
 end
 
 def analize filename
-  character_count = 0
-  character_count_no_whitespace = 0
-  line_count = 0
-  word_count = 0
-  sentence_count = 0
-  paragraph_count = 0
-  average_words_per_sentence = 0
-  average_sentences_per_paragarph = 0
+  # TODO: fix this to hash
+  # trying to hold values in an stats array but it is cumbersome to use and
+  # remember which element is where. Could lead to wrong calculations
+  # very easly.
+
+  stats = [ 0, 0, 0, 0, 0, 0, 0, 0 ]
+  #line_count = 0
+  #character_count = 0
+  #character_count_no_whitespace = 0
+  #word_count = 0
+  #sentence_count = 0
+  #paragraph_count = 0
+  #average_words_per_sentence = 0
+  #average_sentences_per_paragarph = 0
 
   file_in = File.new(filename, "r")
 
   while line_in = file_in.gets
-    line_count += 1
-    character_count += count_characters line_in
-    character_count_no_whitespace += count_characters_no_whitespace line_in
-    word_count += count_words line_in
-    sentence_count += count_sentences line_in
-    paragraph_count += count_paragraphs line_in
+    # line_count += 1
+    stats[0] += 1
+    stats[1] += count_characters line_in
+    stats[2] += count_characters_no_whitespace line_in
+    stats[3] += count_words line_in
+    stats[4] += count_sentences line_in
+    stats[5] += count_paragraphs line_in
   end
 
   file_in.close
 
-  if sentence_count != 0
+  unless stats[4] == 0
 
-    paragraph_count += 1 # last paragraph gets missed because there is no \n
-    average_words_per_sentence = word_count / sentence_count.to_f
-    average_sentences_per_paragarph = sentence_count / paragraph_count.to_f
+    stats[5] += 1 # last paragraph gets missed because there is no \n
+    stats[6] = stats[3] / stats[4].to_f
+    stats[7] = stats[4] / stats[5].to_f
 
   end
 
-   [ line_count, character_count, character_count_no_whitespace, word_count,
-   sentence_count, paragraph_count, average_words_per_sentence,
-   average_sentences_per_paragarph ]
+  stats
+   #[ stats[0], character_count, character_count_no_whitespace, word_count,
+   #sentence_count, paragraph_count, average_words_per_sentence,
+   #average_sentences_per_paragarph ]
 end
 
-def display_analyisis data
+def display_analyisis stats
 
   puts <<DISPLAY_DATA
 
-Total Line Count                     : #{ data[0] }
-Total Character Count                : #{ data[1] }
-Total Character Count (no whitespace): #{ data[2] }
-Total Word Count                     : #{ data[3] }
-Total Sentence Count                 : #{ data[4] }
-Total Paragraph Count                : #{ data[5] }
-Ave. Words per Sentence              : #{ "%.1f" % (data[6]) }
-Ave. Sentences per Paragraph         : #{ "%.1f" % (data[7]) }
+Total Line Count                     : #{ stats[0] }
+Total Character Count                : #{ stats[1] }
+Total Character Count (no whitespace): #{ stats[2] }
+Total Word Count                     : #{ stats[3] }
+Total Sentence Count                 : #{ stats[4] }
+Total Paragraph Count                : #{ stats[5] }
+Ave. Words per Sentence              : #{ "%.1f" % (stats[6]) }
+Ave. Sentences per Paragraph         : #{ "%.1f" % (stats[7]) }
 DISPLAY_DATA
 end
 #
-if ARGV.length != 1
-  puts ARGV.length
+unless ARGV.length == 1 && File.exist?(ARGV[0])
+
   puts <<LIST_INSTRUCTIONS
 
-Outputs Document Statistics
+Outputs Document statistics
 
 Usage: analyzer FILE
 
        FILE       the file to analyze
 
 example:
-          analyzer text.txt
+          analyzer.rb text.txt
 
 LIST_INSTRUCTIONS
   exit 1
@@ -99,8 +107,5 @@ end
 
 filename = ARGV[0]
 
-if File.exist?(filename)
-  display_analyisis analize(filename)
-else
-  puts "File: '#{ filename }' does not exist"
-end
+display_analyisis analize(filename)
+
