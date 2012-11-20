@@ -2,24 +2,20 @@
 require File.expand_path('../../week2/prompt', __FILE__)
 
 def yelling? string
-  string == string.upcase
+    string == string.upcase if string.index(%r/[a-z]|[A-Z]/)
 end
 
-def grandma_random_year
-   years = (1930...1951).to_a
+def grandma_remembers
+   years = (1930..1950).to_a
    years[rand(years.size)]
 end
 
-input = ""
-
-until input == "BYE"
-  input = prompt 'You say to Grandma'
+until "BYE" == (sonny_says = prompt('You say to Grandma').strip)
   print "Grandma responds: "
-  if yelling? input
+  if yelling? sonny_says
 
-    puts "NO, NOT SINCE #{ grandma_random_year }!"
+    puts "NO, NOT SINCE #{ grandma_remembers }!"
   else
     puts "HUH?! SPEAK UP, SONNY!"
   end
 end
-
