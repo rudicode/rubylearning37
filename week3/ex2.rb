@@ -22,10 +22,8 @@ def update_file filename, find, insert
   File.delete filename
   File.rename(temp_file_name, filename)
 end
-
 #
-if ARGV.length != 3
-  puts ARGV.length
+unless ARGV.length == 3 && File.exist?(ARGV[0])
   puts <<LIST_INSTRUCTIONS
 
 Inserts given text before each occurance of found text.
@@ -43,12 +41,6 @@ LIST_INSTRUCTIONS
   exit 1
 end
 
-filename = ARGV[0]
-find     = ARGV[1]
-insert   = ARGV[2]
+filename, find, insert = ARGV
 #
-if File.exist?(filename)
-  update_file(filename, find, insert)
-else
-  puts "File: '#{ filename }' does not exist"
-end
+update_file(filename, find, insert)
