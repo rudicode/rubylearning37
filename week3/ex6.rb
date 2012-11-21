@@ -2,7 +2,7 @@
 require File.expand_path('../../week2/prompt', __FILE__)
 
 def yelling? string
-    string == string.upcase if string.index(%r/[a-z]|[A-Z]/)
+    string == string.upcase if string =~ /[a-z]|[A-Z]/
 end
 
 def talking_money? string
