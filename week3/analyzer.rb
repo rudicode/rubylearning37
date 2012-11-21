@@ -1,6 +1,26 @@
 #!/usr/bin/env ruby
 # Document Stats
 #
+def usage
+  unless ARGV.length == 1 && File.exist?(ARGV[0])
+
+  puts <<LIST_INSTRUCTIONS
+
+Outputs Document statistics
+
+Usage: analyzer FILE
+
+       FILE       the file to analyze
+
+example:
+          analyzer.rb text.txt
+
+LIST_INSTRUCTIONS
+    exit 1
+  end
+end
+#
+
 def count_characters line
   line.strip.length
 end
@@ -87,25 +107,7 @@ Ave. Words per Sentence              : #{ "%.1f" % (stats[6]) }
 Ave. Sentences per Paragraph         : #{ "%.1f" % (stats[7]) }
 DISPLAY_DATA
 end
-#
-unless ARGV.length == 1 && File.exist?(ARGV[0])
-
-  puts <<LIST_INSTRUCTIONS
-
-Outputs Document statistics
-
-Usage: analyzer FILE
-
-       FILE       the file to analyze
-
-example:
-          analyzer.rb text.txt
-
-LIST_INSTRUCTIONS
-  exit 1
-end
-
+# main
+usage
 filename = ARGV[0]
-
 display_analyisis analize(filename)
-
