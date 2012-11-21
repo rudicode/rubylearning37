@@ -6,21 +6,24 @@ def yelling? string
 end
 
 def talking_money? string
-  string.index(%r/\$\d+/)
+  # string.index(%r/\$\d+/)
+  string =~ /\$\d+/
 end
 
-def grandma_says
+def grandma_remembers
    (1930..1950).to_a.sample
 end
 
-until "BYE" == (sonny_says = prompt('You say to Grandma').strip)
-  print "Grandma responds: "
-  if talking_money? sonny_says
-    puts "STASH THE CASH IN THE COOKIE JAR!"
-  elsif yelling? sonny_says
-    puts "NO, NOT SINCE #{ grandma_says }!"
-  else
-    puts "HUH?! SPEAK UP, SONNY!"
+def grandma_answers sonny
+  answer = "HUH?! SPEAK UP, SONNY!"
+  if talking_money? sonny
+    answer = "STASH THE CASH IN THE COOKIE JAR!"
+  elsif yelling? sonny
+    answer = "NO, NOT SINCE #{ grandma_remembers }!"
   end
-  puts
+  answer
+end
+
+until "BYE" == (sonny = prompt('You say to Grandma').strip)
+  puts "Grandma responds: #{ grandma_answers sonny } \n\n"
 end
