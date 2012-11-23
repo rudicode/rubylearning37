@@ -3,10 +3,7 @@
 #The number of participants who did not attempt Quiz 1 is x out of y total participants.
 #
 def count_missed quiz
-    quiz.reduce(0) do |sum, num|
-      sum += 1 if num == 0
-      sum
-    end
+    quiz.count(0)
 end
 
 
