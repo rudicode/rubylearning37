@@ -1,4 +1,12 @@
 require 'minitest/autorun'
-require File.expand_path('../../show-new-files', __FILE__)
+require_relative('../show-new-files')
 
+describe "usage shows usage hints" do
+  it "should contain" do
+    usage("test").must_include "FILE"
+  end
+
+  it "should have one ARGV argument"
+
+end
 
