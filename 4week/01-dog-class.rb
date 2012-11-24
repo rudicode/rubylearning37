@@ -14,6 +14,6 @@ class Dog
   end
   
   def chase_cat
-    "Chase that cat!"
+    "Get that cat!"
   end
 end
