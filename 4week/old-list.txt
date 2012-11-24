@@ -1,0 +1,5 @@
+old-list.txt
+inventory.rb
+show-new-files_spec.rb
+old-inventory.txt
+show-new-files.rb
