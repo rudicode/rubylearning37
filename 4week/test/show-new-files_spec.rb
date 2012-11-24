@@ -1,3 +1,4 @@
 require 'minitest/autorun'
-require 'show-new-files'
+require File.expand_path('../show-new-files', __FILE__)
+
 
