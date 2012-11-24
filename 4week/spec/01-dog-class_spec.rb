@@ -1,4 +1,4 @@
-require File.expand_path('../../01-dog-class', __FILE__)
+require File.expand_path('../../dog', __FILE__)
 
 describe "Dog" do
   before :each do

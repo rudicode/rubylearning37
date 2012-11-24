@@ -1,4 +1,4 @@
-require_relative("01-dog-class")
+require_relative("dog")
 
 dog_leo = Dog.new('Leo')
 
