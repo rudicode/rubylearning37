@@ -1,20 +1,44 @@
 class Rectangle
-  
-  attr_accessor :rounding
-  
+
+  attr_accessor :length, :width
+
   def initialize length, width
     @length = length
     @width = width
-    @rounding = 4
+    calculate
   end
-  
+
+  def calculate
+    @area = (@length * @width)
+    @perimeter = (@length * 2 + @width * 2)
+  end
+
   def area
-    ( "%.#{@rounding}f" % (@length * @width) ).to_f
+    @area
   end
 
   def perimeter
-    ( "%.#{@rounding}f" % (@length * 2 + @width * 2) ).to_f
+    @perimeter
   end
+
+  def length= num
+    @length = num
+    calculate
+  end
+
+  def width= num
+    @width = num
+    calculate
+  end
+
+  def update length, width
+    # is it OK to call the initialize method from inside the class?
+    # any side effects? or is it just a normal method call.
+    initialize length, width
+    #@length = length
+    #@width =  width
+    #calculate
+  end
+
+
 end
-
-
