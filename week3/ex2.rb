@@ -1,16 +1,17 @@
 #!/usr/bin/env ruby
 #
+require 'tempfile'
+
 def insert_word str, find, insert
   output = "#{insert} #{find}"
   str.gsub(find, output)
 end
 
 def update_file filename, find, insert
-  temp_file_name = "temp.tmp"
   puts "Updating file: #{ filename } "
 
   file_in  = File.new(filename, "r")
-  file_out = File.new(temp_file_name, "w")
+  file_out = Tempfile.new('update-file', '.')
 
   while line_in = file_in.gets
     file_out.puts(insert_word(line_in, find, insert))
@@ -20,7 +21,7 @@ def update_file filename, find, insert
   file_out.close
 
   File.delete filename
-  File.rename(temp_file_name, filename)
+  File.rename(file_out.path, filename)
 end
 #
 unless ARGV.length == 3 && File.exist?(ARGV[0])
