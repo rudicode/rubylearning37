@@ -1,7 +1,9 @@
 class Playfair
 
+  attr_reader :cipher_string, :cipher_square
+
   def initialize key_phrase = ""
-    @cipher_square = create_cipher_square key_phrase
+    set_key_phrase key_phrase
   end
 
   def encode_message plain_message
@@ -14,27 +16,24 @@ class Playfair
     coded_message
   end
 
-  def set_new_key key_phrase
-    @key = key_phrase
-    @cipher_square = create_cipher_square key_phrase
-    @cipher_square_formated = format_cipher_square
+  def set_key_phrase key_phrase
+    @key_phrase = key_phrase
+    @cipher_string = create_cipher_string
+    @cipher_square = create_cipher_square
   end
 
-  def create_cipher_square key_phrase
-    sanitized_key = sanitize key_phrase
-    alpha_string = "ABCDEFGHIKLMNOPQRSTUVWXYZ" # <== note missing J
-    cipher_square = ""
+  def create_cipher_string
+    sanitized_key = sanitize @key_phrase
+    alpha_string  = "ABCDEFGHIKLMNOPQRSTUVWXYZ" # <== note missing J
+    cipher_string = ""
 
     sanitized_key.each_char do |char|
       if alpha_string.include?(char)
-        cipher_square << char
+        cipher_string << char
         alpha_string.gsub!(char,'')
       end
     end
-    #puts "Alpha String  is: #{ alpha_string } and length is #{ alpha_string.length }"
-    #puts "Cipher Square is: #{ cipher_square } and length is #{ cipher_square.length }"
-    #puts "Finished create_cipher_square"
-    cipher_square + alpha_string
+    cipher_string + alpha_string
   end
 
   def sanitize string
@@ -42,10 +41,10 @@ class Playfair
     string.upcase.gsub(/[^A-Z]/, "")
   end
 
-  def format_cipher_square cipher_square
+  def create_cipher_square
     formated = ""
     char_count = 1
-    cipher_square.each_char do |char|
+    @cipher_string.each_char do |char|
       formated << "#{ char } "
       if char_count % 5 == 0
         formated << "\n"

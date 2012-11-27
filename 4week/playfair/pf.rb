@@ -4,9 +4,9 @@ require_relative('playfair')
 @pf = Playfair.new()
 
 puts "Example 1: Using 'playfair example' as the key, the table becomes:"
-square = @pf.create_cipher_square("playfair example")
-puts @pf.format_cipher_square square
+@pf.set_key_phrase("playfair example")
+puts @pf.cipher_square
 
 puts "\nExample 2: Using 'I Love Ruby.' as the key, the table becomes:"
-square = @pf.create_cipher_square("I Love Ruby.")
-puts @pf.format_cipher_square square
+@pf.set_key_phrase("I Love Ruby.")
+puts @pf.cipher_square
