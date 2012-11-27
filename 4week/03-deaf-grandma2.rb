@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require_relative('grandma')
 
-@granny = Grandma.new(3)
+@granny = Grandma.new()
 
 puts <<OUTPUT
 

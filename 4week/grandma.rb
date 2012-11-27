@@ -6,8 +6,7 @@ class Grandma
   attr_reader :bye_count
   
   def initialize bye_limit = 3
-    @bye_count = 0
-    @bye_limit = bye_limit
+    visit_again bye_limit
     @grandma_says = {  speakup:    "HUH?! SPEAK UP, SONNY!",
                        cash:       "STASH THE CASH IN THE COOKIE JAR!",
                        notsince:   "NO, NOT SINCE",
@@ -46,9 +45,7 @@ class Grandma
   end
   
   def yelling_bye? string
-    # only if single BYE, others false.
-    return unless yelling?(string)
-    return unless (string =~ /(BYE)/ )
+    return unless yelling?(string) && (string =~ /^(BYE)/ )
     string.index('BYE') == string.rindex('BYE')
   end
   
@@ -61,10 +58,8 @@ class Grandma
   end
   
   def visit_again num
-    # can initialize be called as a normal method or is t special?
-    initialize num
-    #@bye_count = 0
-    #@bye_limit = num
+    @bye_count = 0
+    @bye_limit = num
   end
   
   def bye_limit?

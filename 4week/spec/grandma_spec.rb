@@ -26,6 +26,13 @@ describe "Grandma" do
       
       @grandma.answers("BYE BYE BYE")
       @grandma.bye_count.should eq(start_count)
+      
+      @grandma.answers(" BYE")
+      @grandma.bye_count.should eq(start_count)
+
+      @grandma.answers("LILLIAN WANTED TO SAY BYE AND SO DID SAID")
+      @grandma.bye_count.should eq(start_count)
+
     end
 
     describe "After BYE BYE BYE" do
