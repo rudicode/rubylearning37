@@ -26,7 +26,7 @@ end
 #
 def usage
   unless ARGV.length == 3 && File.exist?(ARGV[0])
-    puts <<LIST_INSTRUCTIONS
+    puts <<-LIST_INSTRUCTIONS
   
   Inserts given text before each occurance of found text.
   
@@ -39,7 +39,7 @@ def usage
   example:
            ex2.rb ex2-words.txt word inserted
   
-LIST_INSTRUCTIONS
+  LIST_INSTRUCTIONS
     exit 1
   end
 end
