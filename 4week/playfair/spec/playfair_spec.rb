@@ -23,31 +23,6 @@ describe Playfair do
       rowcolumn2.should == [5,4]
     end
 
-    it "should get the letter below the given letter" do
-      pending "This is being depreciated"
-      key_phrase = "playfair example"
-      @pf.set_key_phrase key_phrase
-      @pf.get_below("A").should eq("E")
-      @pf.get_below("P").should eq("I")
-      @pf.get_below("F").should eq("M")
-      @pf.get_below("S").should eq("Z")
-      @pf.get_below("T").should eq("P")
-      @pf.get_below("U").should eq("L")
-      @pf.get_below("V").should eq("A")
-      @pf.get_below("W").should eq("Y")
-      @pf.get_below("Z").should eq("F")
-    end
-
-    it "should get the letter to the right of given letter" do
-      pending "This is being depreciated"
-      key_phrase = "playfair example"
-      @pf.set_key_phrase key_phrase
-      @pf.get_right("A").should eq("Y")
-      @pf.get_right("F").should eq("P")
-      @pf.get_right("M").should eq("I")
-      @pf.get_right("S").should eq("K")
-      @pf.get_right("Z").should eq("T")
-    end
     it "should return letter at row, column" do
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
@@ -69,6 +44,26 @@ describe Playfair do
       @pf.encode_pair("S","Z").should eq(["Z","F"])
     end
 
+    it "should decode given pair" do
+      key_phrase = "playfair example"
+      @pf.set_key_phrase key_phrase
+      @pf.decode_pair("B","M").should eq(["H","I"])
+      @pf.decode_pair("G","B").should eq(["D","H"])
+      @pf.decode_pair("T","V").should eq(["Z","U"])
+      @pf.decode_pair("F","T").should eq(["P","Z"])
+      @pf.decode_pair("L","P").should eq(["P","F"])
+      @pf.decode_pair("Z","F").should eq(["S","Z"])
+    end
+
+    it "should have square return an array of row arrays" do
+      key_phrase = "playfair example"
+      given_array = [["P", "L", "A", "Y", "F"], ["I", "R", "E", "X", "M"],
+                     ["B", "C", "D", "G", "H"], ["K", "N", "O", "Q", "S"],
+                     ["T", "U", "V", "W", "Z"]]
+      @pf.set_key_phrase key_phrase
+      @pf.square.should eq(given_array)
+    end
+
   end
 
   context "Encode message" do
@@ -84,10 +79,12 @@ describe Playfair do
 
   context "Decode message" do
     it "correctly for known example" do
-      pending "Not started yet"
+      #pending "Not started yet"
       key_phrase = "playfair example"
-      coded_message = "BM OD ZB XD NA BE KU DM UI XM MO UV IF"
-      @pf.decode_message(coded_message).should eq("Hidethegoldinthetreestump")
+      coded_message = "BMODZBXDNABEKUDMUIXMMOUVIF"
+      known_plain = "HIDETHEGOLDINTHETREXESTUMP"
+      @pf.set_key_phrase key_phrase
+      @pf.decode_message(coded_message).should eq(known_plain)
     end
   end
 
