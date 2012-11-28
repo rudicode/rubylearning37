@@ -22,8 +22,14 @@ class Playfair
     @cipher_square = create_cipher_square
   end
 
+  def sanitize string
+    # remove all characters not A-Z and upcase
+    string.upcase.gsub(/[^A-Z]/, "")
+  end
+
   def create_cipher_string
     sanitized_key = sanitize @key_phrase
+    sanitized_key.gsub!("J","I")
     alpha_string  = "ABCDEFGHIKLMNOPQRSTUVWXYZ" # <== note missing J
     cipher_string = ""
 
@@ -34,11 +40,6 @@ class Playfair
       end
     end
     cipher_string + alpha_string
-  end
-
-  def sanitize string
-    # remove all characters not A-Z and upcase
-    string.upcase.gsub(/[^A-Z]/, "")
   end
 
   def create_cipher_square
@@ -54,4 +55,24 @@ class Playfair
     formated.chomp
   end
 
+  def format_message string
+    message = sanitize string
+    position = 0
+    @spacer = "X"
+    while message[position] != nil
+      if message[position] == message[position.next]
+        message.insert(position+1,@spacer)
+        spacer_next
+      end
+      position += 2
+    end
+    if message.length.odd?
+      message << "X"
+    end
+    message
+  end
+  
+  def spacer_next
+    @spacer == "X" ? @spacer = "Z" : @spacer = "X"
+  end
 end

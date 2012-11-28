@@ -4,6 +4,14 @@ describe Playfair do
   before :each do
     @pf = Playfair.new()
   end
+  
+  context "Utility methods: " do
+    it "test of sanitize string" do
+      @pf.sanitize("  a the  z BBB ").should eq("ATHEZBBB")
+      @pf.sanitize('  #$%the ').should eq("THE")
+      @pf.sanitize('~~@$%^^&&4355467').should eq("")
+    end
+  end
 
   context "Encode message" do
     it "correctly for known example" do
@@ -44,12 +52,21 @@ describe Playfair do
       @pf.set_key_phrase key_phrase
       @pf.cipher_string.should eq(given_string)
     end
+    
+    it "should match known example 'Japan'" do
+      key_phrase = "Japan"
+      given_string = "IAPNBCDEFGHKLMOQRSTUVWXYZ"
+      @pf.set_key_phrase key_phrase
+      @pf.cipher_string.should eq(given_string)
+    end
 
     it "should be 25 characters in length" do
-      key_phrase = "playfair example"
-      given_string = "PLAYFIREXMBCDGHKNOQSTUVWZ"
+      key_phrase = "playfair example that HAS an extremly long key_phrase \
+                   ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+      given_string = "PLAYFIREXMTHSNOGKBCDQUVWZ"
       @pf.set_key_phrase key_phrase
       @pf.cipher_string.length.should eq(25)
+      @pf.cipher_string.should eq(given_string)
     end
   end
 
@@ -70,11 +87,19 @@ describe Playfair do
     end
   end
 
-  it "test of sanitize string" do
-    @pf.sanitize("  a the  z BBB ").should eq("ATHEZBBB")
-    @pf.sanitize('  #$%the ').should eq("THE")
-    @pf.sanitize('~~@$%^^&&4355467').should eq("")
+  context "Prepare Plain Message" do
+    
+    it "should format message 'Hide the gold in the tree stump'" do
+      plain_message = "Hide the gold in the tree stump"
+      message_string = "HIDETHEGOLDINTHETREXESTUMP"
+      @pf.format_message(plain_message).should eq(message_string)
+    end
+    
+    it "should format message 'Congress shall ball'" do
+      plain_message = "Congress shall ball"
+      message_string = "CONGRESXSZSHALLBALLX"
+      @pf.format_message(plain_message).should eq(message_string)
+    end
+
   end
-
-
 end
