@@ -8,7 +8,7 @@ describe Roller do
     @roll.all.should == ["A", "B", "C", "D"]
   end
 
-  it "should return the next item" do
+  it "should return the current item" do
     @roll.current.should == "D"
     @roll.next.should == "A"
     @roll.current.should == "A"

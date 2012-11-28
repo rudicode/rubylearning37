@@ -10,4 +10,7 @@ puts @pf.cipher_square
 #puts "\nExample 2: Using 'I Love Ruby.' as the key, the table becomes:"
 #@pf.set_key_phrase("I Love Ruby.")
 #puts @pf.cipher_square
-@pf.encode_message("pzLLO")
+enc1 = @pf.encode_message("HIDETHEGOLDINTHETREXESTUMP")
+puts enc1
+#largestring = IO.read("largefile.txt")
+#@pf.encode_message(largestring)

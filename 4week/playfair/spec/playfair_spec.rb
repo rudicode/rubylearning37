@@ -4,14 +4,14 @@ describe Playfair do
   before :each do
     @pf = Playfair.new()
   end
-  
+
   context "Utility methods: " do
     it "test of sanitize string" do
       @pf.sanitize("  a the  z BBB ").should eq("ATHEZBBB")
       @pf.sanitize('  #$%the ').should eq("THE")
       @pf.sanitize('~~@$%^^&&4355467').should eq("")
     end
-    
+
     it "should find the correct row and column for a given letter" do
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
@@ -22,8 +22,9 @@ describe Playfair do
       rowcolumn2 = @pf.find_row_and_column "W"
       rowcolumn2.should == [5,4]
     end
-    
+
     it "should get the letter below the given letter" do
+      pending "This is being depreciated"
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
       @pf.get_below("A").should eq("E")
@@ -36,8 +37,9 @@ describe Playfair do
       @pf.get_below("W").should eq("Y")
       @pf.get_below("Z").should eq("F")
     end
-    
+
     it "should get the letter to the right of given letter" do
+      pending "This is being depreciated"
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
       @pf.get_right("A").should eq("Y")
@@ -55,15 +57,28 @@ describe Playfair do
       @pf.letter_at(5,1).should eq("T")
       @pf.letter_at(5,5).should eq("Z")
     end
-    
+
+    it "should encode given pair" do
+      key_phrase = "playfair example"
+      @pf.set_key_phrase key_phrase
+      @pf.encode_pair("H","I").should eq(["B","M"])
+      @pf.encode_pair("D","H").should eq(["G","B"])
+      @pf.encode_pair("Z","U").should eq(["T","V"])
+      @pf.encode_pair("P","Z").should eq(["F","T"])
+      @pf.encode_pair("P","F").should eq(["L","P"])
+      @pf.encode_pair("S","Z").should eq(["Z","F"])
+    end
+
   end
 
   context "Encode message" do
     it "correctly for known example" do
-      pending "Not started yet"
+      #pending "Not started yet"
       key_phrase = "playfair example"
-      plain_message = "Hide the gold in the tree stump."
-      @pf.encode_message(plain_message).should eq("BM OD ZB XD NA BE KU DM UI XM MO UV IF")
+      plain_message = "Hide the gold in the tree stump"
+      known_encrypted = "BMODZBXDNABEKUDMUIXMMOUVIF"
+      @pf.set_key_phrase key_phrase
+      @pf.encode_message(plain_message).should eq(known_encrypted)
     end
   end
 
@@ -97,7 +112,7 @@ describe Playfair do
       @pf.set_key_phrase key_phrase
       @pf.cipher_string.should eq(given_string)
     end
-    
+
     it "should match known example 'Japan'" do
       key_phrase = "Japan"
       given_string = "IAPNBCDEFGHKLMOQRSTUVWXYZ"
@@ -133,13 +148,13 @@ describe Playfair do
   end
 
   context "Prepare Plain Message" do
-    
+
     it "should format message 'Hide the gold in the tree stump'" do
       plain_message = "Hide the gold in the tree stump"
       message_string = "HIDETHEGOLDINTHETREXESTUMP"
       @pf.format_message(plain_message).should eq(message_string)
     end
-    
+
     it "should format message 'Congress shall ball'" do
       plain_message = "Congress shall ball"
       message_string = "CONGRESXSZSHALLBALLX"
