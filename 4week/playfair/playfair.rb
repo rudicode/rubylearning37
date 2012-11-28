@@ -9,8 +9,65 @@ class Playfair
   end
 
   def encode_message plain_message
-    # currently a place holder method
+    plain = sanitize plain_message
+    
+    pair = encode_pair(plain[0],plain[1])
+    puts "Encoded pair #{pair.to_s}"
     plain_message
+  end
+  
+  def encode_pair a, b
+    puts "Encoding pair: #{a}, #{b}"
+    a_row, a_column = find_row_and_column a
+    b_row, b_column = find_row_and_column b
+     puts a_row, a_column, b_row, b_column
+    
+    if a_column == b_column
+      x = get_below a
+      y = get_below b
+      return [x, y]
+    end
+    
+    if a_row == b_row
+      #do row
+      x = get_right a
+      y = get_right b
+      return [x, y]
+    end
+    # else doing rectangle logic
+    x = letter_at a_row, b_column
+    y = letter_at b_row, a_column
+    [x, y]
+  end
+  
+  def letter_at row, column
+    index = (row-1) * 5 + column - 1
+    @cipher_string[index]
+  end
+  def get_below letter
+    index = @cipher_string.index(letter)
+    index += 5
+    if index > 24
+      index -= 25
+    end
+    
+    puts index
+    @cipher_string[index]
+  end
+  
+  def get_right letter
+    index = @cipher_string.index(letter)
+    index += 1
+    if find_row_and_column(letter)[1] == 5
+      index -= 5
+    end
+    @cipher_string[index]
+  end
+  
+  def find_row_and_column letter
+    row = (@cipher_string.index(letter) / 5) + 1
+    column = @cipher_string.index(letter) % 5 + 1
+    [row, column]
   end
 
   def decode_message coded_message

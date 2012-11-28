@@ -11,6 +11,51 @@ describe Playfair do
       @pf.sanitize('  #$%the ').should eq("THE")
       @pf.sanitize('~~@$%^^&&4355467').should eq("")
     end
+    
+    it "should find the correct row and column for a given letter" do
+      key_phrase = "playfair example"
+      @pf.set_key_phrase key_phrase
+      rowcolumn = @pf.find_row_and_column "H"
+      rowcolumn.should == [3,5]
+      rowcolumn2 = @pf.find_row_and_column "I"
+      rowcolumn2.should == [2,1]
+      rowcolumn2 = @pf.find_row_and_column "W"
+      rowcolumn2.should == [5,4]
+    end
+    
+    it "should get the letter below the given letter" do
+      key_phrase = "playfair example"
+      @pf.set_key_phrase key_phrase
+      @pf.get_below("A").should eq("E")
+      @pf.get_below("P").should eq("I")
+      @pf.get_below("F").should eq("M")
+      @pf.get_below("S").should eq("Z")
+      @pf.get_below("T").should eq("P")
+      @pf.get_below("U").should eq("L")
+      @pf.get_below("V").should eq("A")
+      @pf.get_below("W").should eq("Y")
+      @pf.get_below("Z").should eq("F")
+    end
+    
+    it "should get the letter to the right of given letter" do
+      key_phrase = "playfair example"
+      @pf.set_key_phrase key_phrase
+      @pf.get_right("A").should eq("Y")
+      @pf.get_right("F").should eq("P")
+      @pf.get_right("M").should eq("I")
+      @pf.get_right("S").should eq("K")
+      @pf.get_right("Z").should eq("T")
+    end
+    it "should return letter at row, column" do
+      key_phrase = "playfair example"
+      @pf.set_key_phrase key_phrase
+      @pf.letter_at(1,1).should eq("P")
+      @pf.letter_at(1,5).should eq("F")
+      @pf.letter_at(3,4).should eq("G")
+      @pf.letter_at(5,1).should eq("T")
+      @pf.letter_at(5,5).should eq("Z")
+    end
+    
   end
 
   context "Encode message" do
