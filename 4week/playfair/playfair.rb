@@ -74,8 +74,4 @@ class Playfair
     end
     message
   end
-  
-  def spacer_next
-    @spacer == "X" ? @spacer = "Z" : @spacer = "X"
-  end
 end
