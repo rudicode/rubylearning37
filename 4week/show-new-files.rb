@@ -1,30 +1,50 @@
 #!/usr/bin/env ruby
 #
 
-def usage test=nil
-    unless ARGV.length == 1 && File.exist?(ARGV[0])
+def usage
+  unless ARGV.length == 1 && File.exist?(ARGV[0])
+  puts <<LIST_INSTRUCTIONS
 
-  output = <<LIST_INSTRUCTIONS
+Shows all newer files in current directory
 
-Outputs Document statistics
+Usage: show-new-files FILE
 
-Usage: analyzer FILE
+       FILE       containes list of older files
 
-       FILE       the file to analyze
-
-example:
-          analyzer.rb text.txt
+example:   show-new-files.rb snapshot.txt
+Notes: to create snapshot, use inventory.rb
 
 LIST_INSTRUCTIONS
-output
-    begin
-      puts output
-      exit(1) 
-    end unless test
+  exit(1) 
   end
 end
-begin
+
+def get_old_list filename
+  file_in = File.new(filename, "r")
+  names = []
+  while line_in = file_in.gets
+    names << line_in.chomp
+  end
+  file_in.close
+  names
+end
+
+def find_new_files old, current
+  new = []
+  current.each do |file|
+    unless old.include?(file)
+        new << file
+    end
+  end
+  new
+end
+
+###
+
 usage
-current_list_of_files = Dir.glob('**/*')
-puts current_list_of_files
-end if __FILE__ == $0
+current_list = Dir.glob('**/*')
+old_list = get_old_list(ARGV[0])
+new_list = find_new_files old_list, current_list
+#
+puts "NEW FILES\n---------\n\n"
+puts new_list
