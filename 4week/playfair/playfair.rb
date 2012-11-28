@@ -1,9 +1,10 @@
+require_relative 'roller'
+
 class Playfair
 
   attr_reader :cipher_string, :cipher_square
 
   def initialize key_phrase = ""
-    @spacer = "Z"
     set_key_phrase key_phrase
   end
 
@@ -59,13 +60,15 @@ class Playfair
   def format_message string
     message = sanitize string
     position = 0
+    spacer = Roller.new(["X", "Z"])
+    
     while message[position] != nil
       if message[position] == message[position.next]
-        message.insert(position+1,spacer_next)
-        
+        message.insert(position+1,spacer.next)
       end
       position += 2
     end
+    
     if message.length.odd?
       message << "X"
     end
