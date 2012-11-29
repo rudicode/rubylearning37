@@ -17,8 +17,7 @@ class Playfair
     encoded = ""
     count = 0
 
-    loop do
-      break if plain[count] == nil
+    until plain[count] == nil
       pair = encode_pair(plain[count],plain[count.next])
       encoded << pair[0] + pair[1]
       count += 2
@@ -32,15 +31,15 @@ class Playfair
 
     #do row logic
     if a_row == b_row
-      x = letter_at(a_row, (a_column+1))
-      y = letter_at(b_row, (b_column+1))
+      x = letter_at(a_row, a_column + 1)
+      y = letter_at(b_row, b_column + 1)
       return [x, y]
     end
 
     #do column logic
     if a_column == b_column
-      x = letter_at((a_row+1), a_column)
-      y = letter_at((b_row+1), b_column)
+      x = letter_at(a_row + 1, a_column)
+      y = letter_at(b_row + 1, b_column)
       return [x, y]
     end
 
@@ -75,8 +74,7 @@ class Playfair
     encoded = ""
     count = 0
 
-    loop do
-      break if plain[count] == nil
+    until plain[count] == nil
       pair = decode_pair(plain[count],plain[count.next])
         #puts "Encoded pair #{pair.to_s}"
       encoded << pair[0] + pair[1]
@@ -91,15 +89,15 @@ class Playfair
 
     #do row logic
     if a_row == b_row
-      x = letter_at(a_row, (a_column-1))
-      y = letter_at(b_row, (b_column-1))
+      x = letter_at(a_row, a_column - 1)
+      y = letter_at(b_row, b_column - 1)
       return [x, y]
     end
 
     #do column logic
     if a_column == b_column
-      x = letter_at((a_row-1), a_column)
-      y = letter_at((b_row-1), b_column)
+      x = letter_at(a_row - 1, a_column)
+      y = letter_at(b_row - 1, b_column)
       return [x, y]
     end
 
@@ -121,8 +119,7 @@ class Playfair
   end
 
   def create_cipher_string
-    sanitized_key = sanitize @key_phrase
-    sanitized_key.gsub!("J","I")
+    sanitized_key = sanitize(@key_phrase).gsub("J","I")
     alpha_string  = "ABCDEFGHIKLMNOPQRSTUVWXYZ" # <== note missing J
     cipher_string = ""
 
@@ -140,9 +137,7 @@ class Playfair
     char_count = 1
     @cipher_string.each_char do |char|
       formated << "#{ char } "
-      if char_count % 5 == 0
-        formated << "\n"
-      end
+      formated << "\n" if char_count % 5 == 0
       char_count += 1
     end
     formated.chomp
@@ -171,15 +166,11 @@ class Playfair
     spacer = Roller.new(["X", "Z"])
 
     while message[position] != nil
-      if message[position] == message[position.next]
-        message.insert(position+1,spacer.next)
-      end
+      message.insert(position+1,spacer.next) if message[position] == message[position.next]
       position += 2
     end
 
-    if message.length.odd?
-      message << "X"
-    end
+    message << "X" if message.length.odd?
     message
   end
 end
