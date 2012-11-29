@@ -19,4 +19,15 @@ describe "Dog" do
   it "should have a name" do
     @my_dog.name.should eq('Scooby')
   end
+  
+  it "should create a method on an individal instance of a dog" do
+    other_dog = Dog.new('Lassie')
+    other_dog.teach_trick(:jump) { "#{@name} soars into the air!" }
+    @my_dog.respond_to?("laugh").should be_false
+    @my_dog.teach_trick(:laugh) { "#{@name} finds this hilarious!" }
+    @my_dog.respond_to?("laugh").should be_true
+    @my_dog.respond_to?("jump").should be_false
+    other_dog.respond_to?("laugh").should be_false
+    other_dog.respond_to?("jump").should be_true
+  end
 end

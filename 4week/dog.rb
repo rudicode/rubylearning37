@@ -5,6 +5,7 @@ class Dog
   def initialize name
     @name = name
   end
+
   def bark
     "Bark!"
   end
@@ -16,6 +17,18 @@ class Dog
   def chase_cat
     "Get that cat!"
   end
+
+  def teach_trick(sym,&block) 
+    #return if self.respond_to? sym
+    define_singleton_method(sym) do
+    instance_eval &block
+    end
+  end  
+  
+  def method_missing(m,*args,&block)
+    "#{@name} doesn't know how to #{m}"
+  end
+  
 end
 
 
