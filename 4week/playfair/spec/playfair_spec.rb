@@ -158,7 +158,8 @@ describe Playfair do
     format_tests = [
       ["Hide the gold in the tree stump", "HIDETHEGOLDINTHETREXESTUMP"],
       ["Congress shall jail", "CONGRESXSZSHALLIAILX"],
-      ["Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON"]
+      ["Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON"],
+      ['Weeee LOOOOVE Ruuuuby!', "WEEXEZELOXOZOXOVERUXUZUXUBYX"]
       ]
       format_tests.each do |plain_message, expected_formated_text|
         @pf.format_message(plain_message).should eq(expected_formated_text)

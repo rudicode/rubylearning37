@@ -18,6 +18,10 @@ class Roller
     @data[@position]
   end
 
+  def reset
+    @position = -1
+  end
+
   private
     def eod
       @position == @data.length

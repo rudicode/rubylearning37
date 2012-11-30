@@ -63,7 +63,11 @@ class Playfair
     spacer = Roller.new(["X", "Z"])
 
     while message[position] != nil
-      message.insert(position+1,spacer.next) if message[position] == message[position.next]
+       if message[position] == message[position.next]
+         message.insert(position+1,spacer.next)
+       else
+         spacer.reset #reset back to "X"
+       end
       position += 2
     end
 

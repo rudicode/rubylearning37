@@ -21,4 +21,12 @@ describe Roller do
     @roll.next.should == "D"
     @roll.next.should == "A"
   end
+
+  it "should reset so that next retrieves the first item" do
+    @roll.next.should == "A"
+    @roll.next.should == "B"
+    @roll.next.should == "C"
+    @roll.reset
+    @roll.next.should == "A"
+  end
 end
