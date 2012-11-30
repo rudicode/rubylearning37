@@ -11,28 +11,28 @@ class Playfair
   def encrypt plain_message
     cipher_message plain_message, "encrypt"
   end
-  
+
   def decrypt coded_message
     cipher_message coded_message, "decrypt"
   end
-  
+
   def cipher_message plain_message, cipher
-    
-    plain = format_message(sanitize(plain_message)) #TODO handle 'J' in message
+
+    plain = format_message(sanitize(plain_message))
     encoded = ""
     count = 0
 
-    until plain[count] == nil
+    while plain[count]
       pair = cipher_pair(plain[count],plain[count.next],cipher)
       encoded << pair[0] + pair[1]
       count += 2
     end
     encoded
   end
-  
-  def cipher_pair a, b, cipher = "encrypt" 
+
+  def cipher_pair a, b, cipher = "encrypt"
     cipher == "encrypt" ? direction = 1 : direction = -1
-    
+
     a_row, a_column = find_row_and_column a
     b_row, b_column = find_row_and_column b
 
@@ -57,7 +57,6 @@ class Playfair
   end
 
   def format_message string
-    #message = sanitize string
     message = sanitize(string).gsub("J","I")
     position = 0
     spacer = Roller.new(["X", "Z"])
@@ -98,8 +97,6 @@ class Playfair
 
   def sanitize string
     # remove all characters not A-Z and upcase
-    # TODO do we need to handle 'J' replacment here
-    # or do it somwhere else?
     string.upcase.gsub(/[^A-Z]/, "")
   end
 
@@ -144,5 +141,4 @@ class Playfair
     end
     square
   end
-
 end
