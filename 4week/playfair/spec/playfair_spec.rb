@@ -67,14 +67,18 @@ describe Playfair do
   end
 
   context "Encode message" do
-    it "correctly for known example" do
-      #pending "Not started yet"
-      key_phrase = "playfair example"
-      plain_message = "Hide the gold in the tree stump"
-      known_encrypted = "BMODZBXDNABEKUDMUIXMMOUVIF"
-      @pf.set_key_phrase key_phrase
-      @pf.encode_message(plain_message).should eq(known_encrypted)
+        
+    it "should encrypt know examples" do
+      encipher_tests = [ [ "playfair example", "Hide the gold in the tree stump", "BMODZBXDNABEKUDMUIXMMOUVIF" ],
+                 [ "battlestar galactica", "Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "RTETGLSITLMGRSDSPWUFAIGPAIBTIAOWOIKLAQVSBRBILTGRRFPNVNGPBLMGSFFUPO" ],
+                 #['RubyLearning.com', 'Weeee LOOOOVE Ruuuuby!', "TNITGTGRDVFVDVKUCEYVLVYVBYIY"]
+                 ]
+      encipher_tests.each do |key_phrase, plain_message, expected_cipher_text|
+        @pf.set_key_phrase key_phrase
+        @pf.encode_message(plain_message).should eq(expected_cipher_text)
+      end
     end
+    
   end
 
   context "Decode message" do
@@ -116,6 +120,8 @@ describe Playfair do
       @pf.set_key_phrase key_phrase
       @pf.cipher_string.should eq(given_string)
     end
+    
+    
 
     it "should be 25 characters in length" do
       key_phrase = "playfair example that HAS an extremly long key_phrase \
@@ -157,6 +163,7 @@ describe Playfair do
       message_string = "CONGRESXSZSHALLBALLX"
       @pf.format_message(plain_message).should eq(message_string)
     end
+    
 
   end
 end
