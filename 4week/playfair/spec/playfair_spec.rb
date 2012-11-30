@@ -82,9 +82,15 @@ describe Playfair do
   context "Encode message" do
         
     it "should encrypt know examples" do
-      encipher_tests = [ [ "playfair example", "Hide the gold in the tree stump", "BMODZBXDNABEKUDMUIXMMOUVIF" ],
+      encipher_tests = [ 
+                 [ "playfair example", "Hide the gold in the tree stump", "BMODZBXDNABEKUDMUIXMMOUVIF" ],
+                 [ "playfair example", "japan", "EPLYQR" ],
                  [ "battlestar galactica", "Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "RTETGLSITLMGRSDSPWUFAIGPAIBTIAOWOIKLAQVSBRBILTGRRFPNVNGPBLMGSFFUPO" ],
-                 #['RubyLearning.com', 'Weeee LOOOOVE Ruuuuby!', "TNITGTGRDVFVDVKUCEYVLVYVBYIY"]
+                 ['RubyLearning.com', 'Weeee LOOOOVE Ruuuuby!', "TNITGTGRDVFVDVKUCEYVLVYVBYIY"],
+                 [ "First Amendment", "Congress shall make no law respecting an establishment of religion, or
+        prohibiting the free exercise thereof; or abridging the freedom of speech, or of the press;
+        or the right of the people peaceably to assemble, and to petition the government for a
+        redress of grievances.", "OWEHEGRYTYNQBVOADBNDPOMVEGRQMGFREHMDNRFDLVRTCNNDIUISAPRCMWMQEXIPCSCFFREHSKAREGGRGRGEOMRNSKGEMPILFEGFTMCREHSKAREGNAWCLIRQGRMGCQIPIFGNXENRIQSFGNSRHKIUIFGNXGPQPAXGMBNMLVZSLMRYRNACPAMDKDPQDRRFMWDSGNCPXASEENDSILFEEGETNRIQRBSRAXMDGMRY" ]
                  ]
       encipher_tests.each do |key_phrase, plain_message, expected_cipher_text|
         @pf.set_key_phrase key_phrase
@@ -100,9 +106,11 @@ describe Playfair do
       
       decode_test = [
         ["playfair example", "BMODZBXDNABEKUDMUIXMMOUVIF", "HIDETHEGOLDINTHETREXESTUMP"],
-        ["playfair example", "BMODZBXDNABEKUDMUIXMMOUVIF", "HIDETHEGOLDINTHETREXESTUMP"],
-        ["battlestar galactica", "RTETGLSITLMGRSDSPWUFAIGPAIBTIAOWOIKLAQVSBRBILTGRRFPNVNGPBLMGSFFUPO","GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON"]
-      ]
+        ["battlestar galactica", "RTETGLSITLMGRSDSPWUFAIGPAIBTIAOWOIKLAQVSBRBILTGRRFPNVNGPBLMGSFFUPO","GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON"],
+        [ "playfair example", "EPLYQR", "IAPANX" ],
+        ['RubyLearning.com', "TNITGTGRDVFVDVKUCEYVLVYVBYIY", "WEEXEZELOXOZOXOVERUXUZUXUBYX"],
+        ['RubyLearning.com', "ITCEDEHG", "EXERCISE"]
+        ]
       decode_test.each do |key_phrase, coded_message, known_plain|
         @pf.set_key_phrase key_phrase
         @pf.decrypt(coded_message).should eq(known_plain)
@@ -159,7 +167,7 @@ describe Playfair do
       ["Hide the gold in the tree stump", "HIDETHEGOLDINTHETREXESTUMP"],
       ["Congress shall jail", "CONGRESXSZSHALLIAILX"],
       ["Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON"],
-      ['Weeee LOOOOVE Ruuuuby!', "WEEXEZELOXOZOXOVERUXUZUXUBYX"]
+      ['Weeee LOOOOVE Ruuuuby!', "WEEXEZELOXOZOXOVERUXUZUXUBYX"],
       ]
       format_tests.each do |plain_message, expected_formated_text|
         @pf.format_message(plain_message).should eq(expected_formated_text)

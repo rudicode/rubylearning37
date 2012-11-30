@@ -47,22 +47,20 @@ $formed_tests = [
         redress of grievances.", "CONGRESXSZSHALLMAKENOLAWRESPECTINGANESTABLISHMENTOFRELIGIONORPROHIBITINGTHEFREEXEXERCISETHEREOFORABRIDGINGTHEFREEDOMOFSPEXECHOROFTHEPRESSORTHERIGHTOFTHEPEOPLEPEACEABLYTOASXSEMBLEANDTOPETITIONTHEGOVERNMENTFORAREDRESSOFGRIEVANCESX" ],
 
   [ "battlestar galactica", "Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON" ],
-  #[ "playfair example", "japan", "IAPANX" ],
-  #['RubyLearning.com', 'Weeee LOOOOVE Ruuuuby!', "WEEXEZELOXOZOXOVERUXUZUXUBYX"]
+  [ "playfair example", "japan", "IAPANX" ],
+  ['RubyLearning.com', 'Weeee LOOOOVE Ruuuuby!', "WEEXEZELOXOZOXOVERUXUZUXUBYX"]
 ]
 
 $encipher_tests = [
   [ "playfair example", "Hide the gold in the tree stump", "BMODZBXDNABEKUDMUIXMMOUVIF" ],
-=begin
   [ "First Amendment", "
         Congress shall make no law respecting an establishment of religion, or
         prohibiting the free exercise thereof; or abridging the freedom of speech, or of the press;
         or the right of the people peaceably to assemble, and to petition the government for a
         redress of grievances.", "OWEHEGRYTYNQBVOADBNDPOMVEGRQMGFREHMDNRFDLVRTCNNDIUISAPRCMWMQEXIPCSCFFREHSKAREGGRGRGEOMRNSKGEMPILFEGFTMCREHSKAREGNAWCLIRQGRMGCQIPIFGNXENRIQSFGNSRHKIUIFGNXGPQPAXGMBNMLVZSLMRYRNACPAMDKDPQDRRFMWDSGNCPXASEENDSILFEEGETNRIQRBSRAXMDGMRY" ],
-=end
   [ "battlestar galactica", "Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "RTETGLSITLMGRSDSPWUFAIGPAIBTIAOWOIKLAQVSBRBILTGRRFPNVNGPBLMGSFFUPO" ],
-  #[ "playfair example", "japan", "EPLYQR" ],
-  #['RubyLearning.com', 'Weeee LOOOOVE Ruuuuby!', "TNITGTGRDVFVDVKUCEYVLVYVBYIY"]
+  [ "playfair example", "japan", "EPLYQR" ],
+  ['RubyLearning.com', 'Weeee LOOOOVE Ruuuuby!', "TNITGTGRDVFVDVKUCEYVLVYVBYIY"]
 ]
 
 $decipher_tests = [
