@@ -57,7 +57,8 @@ class Playfair
   end
 
   def format_message string
-    message = sanitize string
+    #message = sanitize string
+    message = sanitize(string).gsub("J","I")
     position = 0
     spacer = Roller.new(["X", "Z"])
 
