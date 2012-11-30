@@ -4,7 +4,7 @@ require 'tempfile'
 #
 def insert_word str, find, insert
   output = "#{insert} #{find}"
-  str.gsub(find, output)
+  str.gsub(/\b#{find}\b/, output)
 end
 #
 def update_file filename, find, insert
