@@ -36,23 +36,23 @@ describe Playfair do
     it "should encode given pair" do
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
-      @pf.encode_pair("H","I").should eq(["B","M"])
-      @pf.encode_pair("D","H").should eq(["G","B"])
-      @pf.encode_pair("Z","U").should eq(["T","V"])
-      @pf.encode_pair("P","Z").should eq(["F","T"])
-      @pf.encode_pair("P","F").should eq(["L","P"])
-      @pf.encode_pair("S","Z").should eq(["Z","F"])
+      @pf.cipher_pair("H","I").should eq(["B","M"])
+      @pf.cipher_pair("D","H").should eq(["G","B"])
+      @pf.cipher_pair("Z","U").should eq(["T","V"])
+      @pf.cipher_pair("P","Z").should eq(["F","T"])
+      @pf.cipher_pair("P","F").should eq(["L","P"])
+      @pf.cipher_pair("S","Z").should eq(["Z","F"])
     end
 
     it "should decode given pair" do
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
-      @pf.decode_pair("B","M").should eq(["H","I"])
-      @pf.decode_pair("G","B").should eq(["D","H"])
-      @pf.decode_pair("T","V").should eq(["Z","U"])
-      @pf.decode_pair("F","T").should eq(["P","Z"])
-      @pf.decode_pair("L","P").should eq(["P","F"])
-      @pf.decode_pair("Z","F").should eq(["S","Z"])
+      @pf.cipher_pair("B","M","decrypt").should eq(["H","I"])
+      @pf.cipher_pair("G","B","decrypt").should eq(["D","H"])
+      @pf.cipher_pair("T","V","decrypt").should eq(["Z","U"])
+      @pf.cipher_pair("F","T","decrypt").should eq(["P","Z"])
+      @pf.cipher_pair("L","P","decrypt").should eq(["P","F"])
+      @pf.cipher_pair("Z","F","decrypt").should eq(["S","Z"])
     end
 
     it "should have square return an array of row arrays" do
@@ -75,7 +75,7 @@ describe Playfair do
                  ]
       encipher_tests.each do |key_phrase, plain_message, expected_cipher_text|
         @pf.set_key_phrase key_phrase
-        @pf.encode_message(plain_message).should eq(expected_cipher_text)
+        @pf.encrypt(plain_message).should eq(expected_cipher_text)
       end
     end
     
@@ -88,7 +88,7 @@ describe Playfair do
       coded_message = "BMODZBXDNABEKUDMUIXMMOUVIF"
       known_plain = "HIDETHEGOLDINTHETREXESTUMP"
       @pf.set_key_phrase key_phrase
-      @pf.decode_message(coded_message).should eq(known_plain)
+      @pf.decrypt(coded_message).should eq(known_plain)
     end
   end
 

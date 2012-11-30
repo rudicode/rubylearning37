@@ -6,6 +6,6 @@ require_relative('playfair')
 puts "Example 1: Using 'playfair example' as the key, the table becomes:"
 puts @pf.cipher_square
 
-enc1 = @pf.encode_message("HIDETHEGOLDINTHETREXESTUMP")
+enc1 = @pf.encrypt("HIDETHEGOLDINTHETREXESTUMP")
 puts "Encoded: #{enc1}"
-puts "Decoded: #{@pf.decode_message(enc1)}"
+puts "Decoded: #{@pf.decrypt(enc1)}"

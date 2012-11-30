@@ -9,27 +9,29 @@ class Playfair
   end
 
   def encrypt plain_message
-    encode_message plain_message
+    cipher_message plain_message, "encrypt"
   end
-
-  def encode_message plain_message
-    plain = format_message(sanitize(plain_message))
+  
+  def decrypt coded_message
+    cipher_message coded_message, "decrypt"
+  end
+  
+  def cipher_message plain_message, cipher
+    
+    plain = format_message(sanitize(plain_message)) #TODO handle 'J' in message
     encoded = ""
     count = 0
 
     until plain[count] == nil
-      pair = encode_pair(plain[count],plain[count.next])
+      pair = cipher_pair(plain[count],plain[count.next],cipher)
       encoded << pair[0] + pair[1]
       count += 2
     end
     encoded
   end
   
-  def encode_pair a, b
-    encode_decode_pair a, b, "encode"
-  end
-  def encode_decode_pair a, b, cypher 
-    cypher == "encode" ? direction = 1 : direction = -1
+  def cipher_pair a, b, cipher = "encrypt" 
+    cipher == "encrypt" ? direction = 1 : direction = -1
     
     a_row, a_column = find_row_and_column a
     b_row, b_column = find_row_and_column b
@@ -54,12 +56,25 @@ class Playfair
     [x, y]
   end
 
+  def format_message string
+    message = sanitize string
+    position = 0
+    spacer = Roller.new(["X", "Z"])
+
+    while message[position] != nil
+      message.insert(position+1,spacer.next) if message[position] == message[position.next]
+      position += 2
+    end
+
+    message << "X" if message.length.odd?
+    message
+  end
+
   def letter_at row, column
     row = 1 if row > 5
     column = 1 if column > 5
     row = 5 if row < 1
     column = 5 if column < 1
-      #puts "checking [#{row},#{column}]"
     index = (row-1) * 5 + column - 1
     @cipher_string[index]
   end
@@ -70,28 +85,6 @@ class Playfair
     [row, column]
   end
 
-  def decrypt coded_message
-    decode_message coded_message
-  end
-
-  def decode_message coded_message
-    plain = format_message(sanitize(coded_message))
-    encoded = ""
-    count = 0
-
-    until plain[count] == nil
-      pair = decode_pair(plain[count],plain[count.next])
-        #puts "Encoded pair #{pair.to_s}"
-      encoded << pair[0] + pair[1]
-      count += 2
-    end
-    encoded
-  end
-
-  def decode_pair a, b
-    encode_decode_pair a, b, "decode"
-  end
-
   def set_key_phrase key_phrase
     @key_phrase = key_phrase
     @cipher_string = create_cipher_string
@@ -100,6 +93,8 @@ class Playfair
 
   def sanitize string
     # remove all characters not A-Z and upcase
+    # TODO do we need to handle 'J' replacment here
+    # or do it somwhere else?
     string.upcase.gsub(/[^A-Z]/, "")
   end
 
@@ -145,17 +140,4 @@ class Playfair
     square
   end
 
-  def format_message string
-    message = sanitize string
-    position = 0
-    spacer = Roller.new(["X", "Z"])
-
-    while message[position] != nil
-      message.insert(position+1,spacer.next) if message[position] == message[position.next]
-      position += 2
-    end
-
-    message << "X" if message.length.odd?
-    message
-  end
 end
