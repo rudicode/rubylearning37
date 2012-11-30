@@ -26,33 +26,46 @@ describe Playfair do
     it "should return letter at row, column" do
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
-      @pf.letter_at(1,1).should eq("P")
-      @pf.letter_at(1,5).should eq("F")
-      @pf.letter_at(3,4).should eq("G")
-      @pf.letter_at(5,1).should eq("T")
-      @pf.letter_at(5,5).should eq("Z")
+      letter_data = [ [1,1,"P"],
+                      [1,5,"F"],
+                      [3,4,"G"],
+                      [5,1,"T"],
+                      [5,5,"Z"]]
+      
+      letter_data.each do |x,y,letter|
+        @pf.letter_at(x,y).should eq(letter)
+      end
     end
 
     it "should encode given pair" do
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
-      @pf.cipher_pair("H","I").should eq(["B","M"])
-      @pf.cipher_pair("D","H").should eq(["G","B"])
-      @pf.cipher_pair("Z","U").should eq(["T","V"])
-      @pf.cipher_pair("P","Z").should eq(["F","T"])
-      @pf.cipher_pair("P","F").should eq(["L","P"])
-      @pf.cipher_pair("S","Z").should eq(["Z","F"])
+      encode_pairs = [["H","I","B","M"],
+                      ["D","H","G","B"],
+                      ["Z","U","T","V"],
+                      ["P","Z","F","T"],
+                      ["P","F","L","P"],
+                      ["S","Z","Z","F"]]
+      
+      encode_pairs.each do |a, b, x, y|
+        @pf.cipher_pair(a,b).should eq([x,y])
+      end
     end
 
     it "should decode given pair" do
       key_phrase = "playfair example"
       @pf.set_key_phrase key_phrase
-      @pf.cipher_pair("B","M","decrypt").should eq(["H","I"])
-      @pf.cipher_pair("G","B","decrypt").should eq(["D","H"])
-      @pf.cipher_pair("T","V","decrypt").should eq(["Z","U"])
-      @pf.cipher_pair("F","T","decrypt").should eq(["P","Z"])
-      @pf.cipher_pair("L","P","decrypt").should eq(["P","F"])
-      @pf.cipher_pair("Z","F","decrypt").should eq(["S","Z"])
+      
+      decode_pairs = [["B","M","H","I"],
+                      ["G","B","D","H"],
+                      ["T","V","Z","U"],
+                      ["F","T","P","Z"],
+                      ["L","P","P","F"],
+                      ["Z","F","S","Z"]]
+      
+      decode_pairs.each do |a, b, x, y|
+        @pf.cipher_pair(a,b,"decrypt").should eq([x,y])
+      end
     end
 
     it "should have square return an array of row arrays" do
@@ -82,46 +95,34 @@ describe Playfair do
   end
 
   context "Decode message" do
+    
     it "correctly for known example" do
-      #pending "Not started yet"
-      key_phrase = "playfair example"
-      coded_message = "BMODZBXDNABEKUDMUIXMMOUVIF"
-      known_plain = "HIDETHEGOLDINTHETREXESTUMP"
-      @pf.set_key_phrase key_phrase
-      @pf.decrypt(coded_message).should eq(known_plain)
+      
+      decode_test = [
+        ["playfair example", "BMODZBXDNABEKUDMUIXMMOUVIF", "HIDETHEGOLDINTHETREXESTUMP"],
+        ["playfair example", "BMODZBXDNABEKUDMUIXMMOUVIF", "HIDETHEGOLDINTHETREXESTUMP"],
+        ["battlestar galactica", "RTETGLSITLMGRSDSPWUFAIGPAIBTIAOWOIKLAQVSBRBILTGRRFPNVNGPBLMGSFFUPO","GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON"]
+      ]
+      decode_test.each do |key_phrase, coded_message, known_plain|
+        @pf.set_key_phrase key_phrase
+        @pf.decrypt(coded_message).should eq(known_plain)
+      end
     end
   end
 
   context "Cipher String" do
-    it "should match known example 'playfair example'" do
-      key_phrase = "playfair example"
-      given_string = "PLAYFIREXMBCDGHKNOQSTUVWZ"
-      @pf.set_key_phrase key_phrase
-      @pf.cipher_string.should eq(given_string)
+    it "should match known examples" do
+      cipher_string_test = [
+        ["playfair example", "PLAYFIREXMBCDGHKNOQSTUVWZ"],
+        ["First Amendment", "FIRSTAMENDBCGHKLOPQUVWXYZ"],
+        ["", "ABCDEFGHIKLMNOPQRSTUVWXYZ"],
+        ["Japan", "IAPNBCDEFGHKLMOQRSTUVWXYZ"]
+      ]
+      cipher_string_test.each do |key_phrase, cipher_string|
+        @pf.set_key_phrase key_phrase
+        @pf.cipher_string.should eq(cipher_string)
+      end
     end
-
-    it "should match known example 'First Amendment'" do
-      key_phrase = "First Amendment"
-      given_string = "FIRSTAMENDBCGHKLOPQUVWXYZ"
-      @pf.set_key_phrase key_phrase
-      @pf.cipher_string.should eq(given_string)
-    end
-
-    it "should match known example with blank key_phrase" do
-      key_phrase = ""
-      given_string = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
-      @pf.set_key_phrase key_phrase
-      @pf.cipher_string.should eq(given_string)
-    end
-
-    it "should match known example 'Japan'" do
-      key_phrase = "Japan"
-      given_string = "IAPNBCDEFGHKLMOQRSTUVWXYZ"
-      @pf.set_key_phrase key_phrase
-      @pf.cipher_string.should eq(given_string)
-    end
-    
-    
 
     it "should be 25 characters in length" do
       key_phrase = "playfair example that HAS an extremly long key_phrase \
@@ -152,18 +153,17 @@ describe Playfair do
 
   context "Prepare Plain Message" do
 
-    it "should format message 'Hide the gold in the tree stump'" do
-      plain_message = "Hide the gold in the tree stump"
-      message_string = "HIDETHEGOLDINTHETREXESTUMP"
-      @pf.format_message(plain_message).should eq(message_string)
-    end
-
-    it "should format message 'Congress shall ball'" do
-      plain_message = "Congress shall ball"
-      message_string = "CONGRESXSZSHALLBALLX"
-      @pf.format_message(plain_message).should eq(message_string)
-    end
+    it "should format message correctly" do
     
-
+    format_tests = [
+      ["Hide the gold in the tree stump", "HIDETHEGOLDINTHETREXESTUMP"],
+      ["Congress shall jail", "CONGRESXSZSHALLIAILX"],
+      ["Galactica, this is boomer.  There are four cylon base-stars around the third moon!", "GALACTICATHISISBOXOMERTHEREAREFOURCYLONBASESTARSAROUNDTHETHIRDMOON"]
+      ]
+      format_tests.each do |plain_message, expected_formated_text|
+        @pf.format_message(plain_message).should eq(expected_formated_text)
+      end
+    
+    end  
   end
 end
