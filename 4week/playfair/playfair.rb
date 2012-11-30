@@ -24,22 +24,27 @@ class Playfair
     end
     encoded
   end
-
+  
   def encode_pair a, b
+    encode_decode_pair a, b, "encode"
+  end
+  def encode_decode_pair a, b, cypher 
+    cypher == "encode" ? direction = 1 : direction = -1
+    
     a_row, a_column = find_row_and_column a
     b_row, b_column = find_row_and_column b
 
     #do row logic
     if a_row == b_row
-      x = letter_at(a_row, a_column + 1)
-      y = letter_at(b_row, b_column + 1)
+      x = letter_at(a_row, a_column + direction)
+      y = letter_at(b_row, b_column + direction)
       return [x, y]
     end
 
     #do column logic
     if a_column == b_column
-      x = letter_at(a_row + 1, a_column)
-      y = letter_at(b_row + 1, b_column)
+      x = letter_at(a_row + direction, a_column)
+      y = letter_at(b_row + direction, b_column)
       return [x, y]
     end
 
@@ -84,27 +89,7 @@ class Playfair
   end
 
   def decode_pair a, b
-    a_row, a_column = find_row_and_column a
-    b_row, b_column = find_row_and_column b
-
-    #do row logic
-    if a_row == b_row
-      x = letter_at(a_row, a_column - 1)
-      y = letter_at(b_row, b_column - 1)
-      return [x, y]
-    end
-
-    #do column logic
-    if a_column == b_column
-      x = letter_at(a_row - 1, a_column)
-      y = letter_at(b_row - 1, b_column)
-      return [x, y]
-    end
-
-    # else doing rectangle logic
-    x = letter_at a_row, b_column
-    y = letter_at b_row, a_column
-    [x, y]
+    encode_decode_pair a, b, "decode"
   end
 
   def set_key_phrase key_phrase
