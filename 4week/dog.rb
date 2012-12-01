@@ -17,10 +17,10 @@ class Dog
   def chase_cat
     "Get that cat!"
   end
-  
+
   def chase_cat
     def distance
-      distance = rand(0..10)
+      distance = rand(11)
     end
     until distance == 0
       str = @name + "-" * distance + "cat   "
