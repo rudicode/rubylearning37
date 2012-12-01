@@ -27,3 +27,4 @@ puts
 d3=Dog.new('Stimpy')
 puts d3.dance
 puts d3.laugh
+puts d3.chase_cat

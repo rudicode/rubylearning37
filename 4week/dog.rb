@@ -17,6 +17,17 @@ class Dog
   def chase_cat
     "Get that cat!"
   end
+  
+  def chase_cat
+    def distance
+      distance = rand(0..10)
+    end
+    until distance == 0
+      str = @name + "-" * distance + "cat   "
+      print str
+    end
+    puts "MIAAAAUUW"
+  end
 
   def teach_trick(sym,&block) 
     #return if self.respond_to? sym
