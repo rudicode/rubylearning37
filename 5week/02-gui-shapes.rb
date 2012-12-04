@@ -14,7 +14,7 @@ class GUI
   end
 
   def add shape
-    @shapes << shape  
+    @shapes << shape
   end
 end
 
@@ -29,4 +29,3 @@ gui.click("square")
 gui.click("circle")
 gui.click("triangle")
 gui.click("amoeba")
-
