@@ -29,7 +29,7 @@ describe "GameBoard: " do
     gb.check_yourself(6).must_equal "Miss"
     gb.check_yourself(2).must_equal "Hit"
     gb.check_yourself(3).must_equal "Hit"
-    gb.check_yourself(4).must_equal "END"
+    gb.check_yourself(4).must_equal "kill"
   end
 
 end
