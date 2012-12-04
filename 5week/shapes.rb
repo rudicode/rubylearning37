@@ -2,16 +2,25 @@
 class Shape
   attr_reader :name
 
-  def initialize shape, sound_extension = ".aif"
-    @name = shape
+  def initialize x, y, sound_extension = ".aif"
+    @pos_x = x
+    @pos_y = y
+    @name = self.class.to_s.downcase
+
     @sound_extension = sound_extension
     @rotation_point = "center"
     @rotation_direction = "clockwise"
   end
 
-  def animate
-    puts rotate
-    puts play_sound
+  def click x,y
+    if x == @pos_x && y == @pos_y
+      animate
+    end
+  end
+
+def animate
+      puts rotate
+      puts play_sound
   end
 
   def rotate
@@ -34,7 +43,7 @@ end
 
 class Amoeba < Shape
 
-  def initialize shape, sound_extension = ".hif"
+  def initialize x, y, sound_extension = ".hif"
     super
     @rotation_point = "endpoint"
     @rotation_direction = "counter-clockwise"

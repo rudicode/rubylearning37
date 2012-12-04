@@ -5,11 +5,9 @@ class GUI
     @shapes = []
   end
 
-  def click name
+  def click x,y
     @shapes.each do |shape|
-      if shape.name == name
-        shape.animate
-      end
+      shape.click(x,y)
     end
   end
 
@@ -20,12 +18,12 @@ end
 
 gui = GUI.new
 
-gui.add(Square.new("square"))
-gui.add(Circle.new("circle"))
-gui.add(Triangle.new("triangle"))
-gui.add(Amoeba.new("amoeba"))
+gui.add Square.new(1,5)
+gui.add Circle.new(2,4)
+gui.add Triangle.new(3,3)
+gui.add Amoeba.new(4,2)
 
-gui.click("square")
-gui.click("circle")
-gui.click("triangle")
-gui.click("amoeba")
+gui.click(1,5)
+gui.click(2,4)
+gui.click(3,3)
+gui.click(4,2)
