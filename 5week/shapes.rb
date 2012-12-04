@@ -20,3 +20,10 @@ end
 
 class Triangle < Shape
 end
+
+class Amoeba < Shape
+  def animate
+    puts "#{@name.capitalize} is rotating 360 deg counter-clockwise, around an endpoint."
+    puts "Playing the #{@name}.hif file." 
+  end
+end

@@ -23,10 +23,10 @@ gui = GUI.new
 gui.add(Square.new("square"))
 gui.add(Circle.new("circle"))
 gui.add(Triangle.new("triangle"))
-gui.add(Triangle.new("triangle2"))
+gui.add(Amoeba.new("amoeba"))
 
 gui.click("square")
 gui.click("circle")
 gui.click("triangle")
-gui.click("triangle2")
+gui.click("amoeba")
 
