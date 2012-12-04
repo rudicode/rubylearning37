@@ -2,28 +2,31 @@ require_relative 'shapes'
 
 class GUI
   def initialize
-    @square = Square.new("square")
-    @circle = Circle.new("circle")
-    @triangle = Triangle.new("triangle")
+    @shapes = []
   end
 
-  def click shape
-    if shape == "square"
-      @square.animate
+  def click name
+    @shapes.each do |shape|
+      if shape.name == name
+        shape.animate
+      end
     end
+  end
 
-    if shape == "circle"
-      @circle.animate
-    end
-
-    if shape == "triangle"
-      @triangle.animate
-    end
+  def add shape
+    @shapes << shape  
   end
 end
 
 gui = GUI.new
+
+gui.add(Square.new("square"))
+gui.add(Circle.new("circle"))
+gui.add(Triangle.new("triangle"))
+gui.add(Triangle.new("triangle2"))
+
 gui.click("square")
 gui.click("circle")
 gui.click("triangle")
+gui.click("triangle2")
 

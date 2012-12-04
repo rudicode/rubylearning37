@@ -1,33 +1,22 @@
 
 class Shape
+  attr_reader :name
+
   def initialize shape 
-    @shape = shape 
+    @name = shape
   end
 
   def animate
-    puts "#{@shape} is rotating 360 deg cw."
-    puts "Playing #{@shape} aif sound" 
+    puts "#{@name.capitalize} is rotating 360 deg counter-clockwise."
+    puts "Playing the #{@name}.aif file." 
   end
 end
 
 class Square < Shape
-  def initialize(shape)
-    super    
-  end
-
 end
 
 class Circle < Shape
-  def initialize(shape)
-    super    
-  end
-
-
 end
 
 class Triangle < Shape
-  def initialize(shape)
-    super    
-  end
-
 end
