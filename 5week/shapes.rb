@@ -12,7 +12,7 @@ class Shape
     @rotation_direction = "clockwise"
   end
 
-  def click x,y
+  def click_on x,y
     if x == @pos_x && y == @pos_y
       animate
     end
