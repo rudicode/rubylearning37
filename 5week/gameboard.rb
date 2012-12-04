@@ -2,24 +2,27 @@
 class GameBoard
   
   def initialize
-    @hits = [] 
+    # @hits = [] 
+    @no_of_hits = 0
   end
  
   def set_locations_cells locations
-    @locations = locations.to_a
+    @locations = locations
   end
 
   def check_yourself user_guess
     guess = user_guess.to_i
-    answer = "MISS"   
+    answer = "Miss"   
     if @locations.include?(guess)
-     answer = "HIT"
-     @hits << user_guess
-     @hits.uniq!
+     answer = "Hit"
+     # @hits << user_guess
+     # @hits.uniq!
+     @no_of_hits += 1
     end
-    if @hits.length >= 3
-      answer = "KILL"
+    if @no_of_hits >= 3
+      answer = "kill"
     end
-    answer  
+    puts answer
+    answer
   end
 end
