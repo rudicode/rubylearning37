@@ -23,11 +23,9 @@ class Shape
   end
 end
 
-class Square < Shape
-end
+Square = Shape
 
-class Circle < Shape
-end
+Circle = Shape
 
 class Triangle < Shape
 end
@@ -40,3 +38,5 @@ class Amoeba < Shape
     @rotation_direction = "counter-clockwise"
   end
 end
+
+Square.new.spin
