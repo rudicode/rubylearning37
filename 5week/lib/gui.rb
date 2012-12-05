@@ -1,4 +1,3 @@
-require_relative 'shapes'
 
 class GUI
   def initialize

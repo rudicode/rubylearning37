@@ -1,3 +1,4 @@
+require_relative '../lib/shapes'
 require_relative '../lib/gui'
 # The note here is to run and edit from the 'project root' folder
 
