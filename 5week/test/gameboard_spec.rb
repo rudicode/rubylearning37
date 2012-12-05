@@ -8,7 +8,7 @@ reporters = [ MiniTest::Reporters::DefaultReporter.new,
               # MiniTest::Reporters::RubyMateReporter.new,
               # MiniTest::Reporters::GuardReporter.new,
               ]
-MiniTest::Reporters.use! [reporters[1]]
+MiniTest::Reporters.use! [reporters[0]]
 
 require './lib/gameboard'
 
@@ -49,8 +49,14 @@ describe "Gameboard ready for client upgrades" do
     locations = [2,3,4]
     @gb.set_locations_cells(locations)
   end
-  it "should work with larger playing field"
-  it "should work with non-sequntial targets"
-  it "should work with string targets"
+  it "should work with larger playing field" do
+    skip "This works with current class, write tests"
+  end
+  it "should work with non-sequntial targets" do
+    skip "This works with current class, write tests"
+  end
+  it "should work with string targets" do
+    skip "This needs some work... write tests"
+  end
 end
 
