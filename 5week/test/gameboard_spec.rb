@@ -10,7 +10,7 @@ reporters = [ MiniTest::Reporters::DefaultReporter.new,
               ]
 MiniTest::Reporters.use! [reporters.sample]
 
-require_relative('gameboard')
+require './lib/gameboard'
 
 describe "GameBoard: " do
   it "should contain" do
