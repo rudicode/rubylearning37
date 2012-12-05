@@ -1,4 +1,4 @@
-require './lib/gui'
+require_relative '../lib/gui'
 # The note here is to run and edit from the 'project root' folder
 
 gui = GUI.new

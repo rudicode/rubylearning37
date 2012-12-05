@@ -1,5 +1,5 @@
 # testgameboard.rb
-require './gameboard'
+require_relative '../lib/gameboard'
 # track how many guesses the user makes
 no_of_guesses = 0
 # instantiate a GameBoard object

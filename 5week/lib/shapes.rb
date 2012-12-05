@@ -34,9 +34,10 @@ class Amoeba < Shape
 
   def initialize shape, sound_extension = ".hif"
     super
+    # override instance variables here
     @rotation_point = "endpoint"
     @rotation_direction = "counter-clockwise"
   end
 end
 
-Square.new.spin
+#Square.new.spin
