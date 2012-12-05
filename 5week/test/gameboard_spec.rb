@@ -8,7 +8,7 @@ reporters = [ MiniTest::Reporters::DefaultReporter.new,
               # MiniTest::Reporters::RubyMateReporter.new,
               # MiniTest::Reporters::GuardReporter.new,
               ]
-MiniTest::Reporters.use! [reporters.sample]
+MiniTest::Reporters.use! [reporters[2]]
 
 require './lib/gameboard'
 

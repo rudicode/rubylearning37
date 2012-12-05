@@ -25,4 +25,4 @@ while is_alive
     is_alive = false
     puts "You took #{no_of_guesses} guesses"
   end
-end 
+end
