@@ -49,14 +49,10 @@ describe "Gameboard ready for client upgrades" do
     locations = [2,3,4]
     @gb.set_locations_cells(locations)
   end
-  it "should work with larger playing field" do
-    skip "This works with current class, write tests"
-  end
-  it "should work with non-sequntial targets" do
-    skip "This works with current class, write tests"
-  end
-  it "should work with string targets" do
-    skip "This needs some work... write tests"
-  end
+
+  it "should work with larger playing field"
+  it "should work with non-sequntial targets"
+  it "should work with string targets"
+
 end
 
