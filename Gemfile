@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+  gem 'guard',       '1.5.4'
   gem 'guard-rspec', '1.2.1'
   gem 'rb-inotify',  '0.8.8'
   gem 'libnotify',   '0.8.0'
@@ -8,3 +9,4 @@ source 'https://rubygems.org'
   gem 'pry' ,        '0.9.10'
   gem 'minitest-reporters'
   gem 'guard-minitest', '0.5.0'
+  gem "green_shoes", "~> 1.1.367"
