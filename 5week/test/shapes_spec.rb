@@ -10,7 +10,7 @@ reporters = [ # MiniTest::Reporters::DefaultReporter.new,
               ]
 MiniTest::Reporters.use! [reporters.sample]
 
-require_relative('../lib/shapes')
+require('./lib/shapes')
 
 describe "Shape: " do
   before :each do

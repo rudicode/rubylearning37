@@ -1,4 +1,4 @@
-require_relative '../lib/shapes'
+require './lib/shapes'
 
 class GUI
   def initialize

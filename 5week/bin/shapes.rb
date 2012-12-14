@@ -1,5 +1,5 @@
-require_relative '../lib/shapes'
-require_relative '../lib/gui'
+require './lib/shapes'
+require './lib/gui'
 # The note here is to run and edit from the 'project root' folder
 
 gui = GUI.new
