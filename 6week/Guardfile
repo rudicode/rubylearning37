@@ -24,9 +24,9 @@ guard 'minitest' do
 end
 
 notification :tmux,
-  :display_message => true,
+  :display_message => false,
   :default_message_color => 'colour15',
-  :timeout => 5, # in seconds
+  :timeout => 3, # in seconds
   :default_message_format => '%s >> %s',
   # the first %s will show the title, the second the message
   # Alternately you can also configure *success_message_format*,

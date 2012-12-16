@@ -24,7 +24,7 @@ usage
 #
 tag_from_file = Mp3File.get_tag(ARGV[0])
 tag_info = Mp3Info.new(tag_from_file)
-mp3info = tag_info.all
+mp3info = tag_info.song
 if tag_info.valid?
   puts <<MP3INFO
  The Title is   : #{ mp3info[:title] }

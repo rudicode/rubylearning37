@@ -1,3 +1,5 @@
+require "rubygems"
+require "bundler/setup"
 require 'minitest/autorun'
 require 'minitest/reporters'
 
@@ -20,7 +22,7 @@ describe "Mp3Info" do
       @invalid_tag = "Dancing Shoes\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000Cliff Richard and The Shadows\u0000(SUMMER HOLIDAY  1963)\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u00002000#100%-Free-MP3s(Dalnet) Anni\u0000\r\u0018"
   end
 
-  describe "Invalid TAG info" do
+  describe "TAG info" do
     before :each do
       @valid_tag_info   = Mp3Info.new(@valid_tag)
       @invalid_tag_info = Mp3Info.new(@invalid_tag)
@@ -30,15 +32,21 @@ describe "Mp3Info" do
       @invalid_tag_info.valid?.must_equal false
     end
 
-    it "an invalid TAG clears all previous attributes" do
+    it ".valid? must return nil, if tag info is not exactly 128 bytes" do
+      temp = Mp3Info.new("TAGshort one")
+      temp.valid?.must_equal false
+
+    end
+
+    it "an invalid TAG clears.song previous attributes" do
       @tag_info   = Mp3Info.new(@valid_tag)
-      data = @tag_info.all
+      data = @tag_info.song
       data[:title].wont_be_nil
       data[:artist].wont_be_nil
 
       @tag_info.get_info @invalid_tag
 
-      data = @tag_info.all
+      data = @tag_info.song
       data[:title].must_be_nil
       data[:artist].must_be_nil
     end
@@ -48,39 +56,35 @@ describe "Mp3Info" do
   describe "with valid TAG" do
     before :each do
       @tag_info = Mp3Info.new(@valid_tag) 
-      @tag = @tag_info.all
-    end
-    
-    it "Sets the correct header" do
-      @tag_info.header.must_equal 'TAG'
-    end
-    
-    it "Sets the correct Title" do
-      @tag_info.title.must_equal 'Dancing Shoes'
-    end
-    
-    it "Sets the correct Artist" do
-      @tag_info.artist.must_equal 'Cliff Richard and The Shadows'
-    end
-    
-    it "Sets the correct Album" do
-      @tag_info.album.must_equal '(SUMMER HOLIDAY  1963)'
     end
 
-    it "Sets the correct Year"do
-      @tag_info.year.must_equal '2000'
+    it "must respond to TAG attribute methods" do
+      methods = [:title, :header, :artist, :album, :year, :comment, :track ]
+      methods.each do |m|
+        @tag_info.must_respond_to m
+      end
     end
-
-    it "Sets the correct Comment"do
-      @tag_info.comment.must_equal '#100%-Free-MP3s(Dalnet) Anni'
+    
+    it "wont respond to boo" do
+      @tag_info.wont_respond_to :boo
     end
+    
+    it "Sets the correct mp3info" do
+      # pending "Not set up yet"
+      correct_info = { 
+        header: 'TAG',
+        title: 'Dancing Shoes', 
+        artist: 'Cliff Richard and The Shadows',
+        album: '(SUMMER HOLIDAY  1963)',
+        year: '2000',
+        comment: '#100%-Free-MP3s(Dalnet) Anni',
+        track: 13,
+        genre: 24,
+        }
 
-    it "Sets the correct Track"do
-      @tag_info.track.must_equal 13
-    end
-
-    it "Sets the correct Genre"do
-      @tag_info.genre.must_equal 24
+      correct_info.each_pair do |m,answer|
+        @tag_info.send(m).must_equal answer
+      end
     end
 
     it "Sets track to 0 if there is no track info" do

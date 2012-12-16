@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-  gem 'guard',       '1.5.4'
+  gem 'guard',       :git => "https://github.com/rudicode/guard.git", :branch => "tmux-bg-color"
   gem 'guard-rspec', '1.2.1'
   gem 'rb-inotify',  '0.8.8'
   gem 'libnotify',   '0.8.0'

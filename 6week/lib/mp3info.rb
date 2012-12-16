@@ -1,57 +1,47 @@
 class Mp3Info
-  attr_reader :all, :tag_info, :header
+  # Mp3Info will respond to the following dynamicaly generated methods
+  # :track
+  # :title
+  # :artist
+  # :album
+  # :year
+  # :comment
+  # :genre
+
+  attr_reader :song, :tag_info, :header
 
   def initialize tag_info
-    @all = { }
+    @song = { }
     get_info tag_info
   end
 
   def get_info tag_info
+    @tag_info = tag_info
     @header = tag_info.byteslice(0..2)
     if valid?
-      @all[:track] = 0
-      @all[:title]   , dummy_1, dummy_2 = tag_info.byteslice(3..32).partition("\x00")
-      @all[:artist]  , dummy_1, dummy_2 = tag_info.byteslice(33..62).partition("\x00")
-      @all[:album]   , dummy_1, dummy_2 = tag_info.byteslice(63..92).partition("\x00")
-      @all[:year]    , dummy_1, dummy_2 = tag_info.byteslice(93..96).partition("\x00")
-      @all[:comment] , dummy_1, dummy_2 = tag_info.byteslice(97..126).partition("\x00")
-      (tag_info.getbyte(125) == 0) && (@all[:track] = tag_info.getbyte(126)) 
-      @all[:genre]   = tag_info.getbyte(127).ord
+      @song[:track]   = 0
+      @song[:title]   = tag_info.byteslice(3..32).partition("\x00").first
+      @song[:artist]  = tag_info.byteslice(33..62).partition("\x00").first
+      @song[:album]   = tag_info.byteslice(63..92).partition("\x00").first
+      @song[:year]    = tag_info.byteslice(93..96).partition("\x00").first
+      @song[:comment] = tag_info.byteslice(97..126).partition("\x00").first
+      @song[:track]   = tag_info.getbyte(126) if (tag_info.getbyte(125) == 0)
+      @song[:genre]   = tag_info.getbyte(127).ord
+      return @song
     else
-      @all.clear
+      @song.clear
     end
-    @all
   end
 
   def valid?
-    @header == 'TAG'
+    @header == 'TAG' && @tag_info.length == 128
   end
 
-  def title
-    @all[:title]
+  def method_missing(method, *args, &blk)
+    @song.has_key?(method) and @song[method] or super
   end
 
-  def artist
-    @all[:artist]
-  end
-
-  def album
-    @all[:album]
-  end
-
-  def year
-    @all[:year]
-  end
-
-  def comment
-    @all[:comment]
-  end
-
-  def track
-    @all[:track]
-  end
-
-  def genre
-    @all[:genre]
+  def respond_to_missing?(name, private = false)
+    @song.has_key?(name) or super
   end
 end
