@@ -20,17 +20,21 @@ class Mp3Info
     @header = tag_info.byteslice(0..2)
     if valid?
       @song[:track]   = 0
-      @song[:title]   = tag_info.byteslice(3..32).partition("\x00").first
-      @song[:artist]  = tag_info.byteslice(33..62).partition("\x00").first
-      @song[:album]   = tag_info.byteslice(63..92).partition("\x00").first
-      @song[:year]    = tag_info.byteslice(93..96).partition("\x00").first
-      @song[:comment] = tag_info.byteslice(97..126).partition("\x00").first
+      @song[:title]   = get_tag_at(3..32)
+      @song[:artist]  = get_tag_at(33..62)
+      @song[:album]   = get_tag_at(63..92)
+      @song[:year]    = get_tag_at(93..96)
+      @song[:comment] = get_tag_at(97..126)
       @song[:track]   = tag_info.getbyte(126) if (tag_info.getbyte(125) == 0)
       @song[:genre]   = tag_info.getbyte(127).ord
       return @song
     else
       @song.clear
     end
+  end
+
+  def get_tag_at range
+      @tag_info.byteslice(range).partition("\x00").first
   end
 
   def valid?
