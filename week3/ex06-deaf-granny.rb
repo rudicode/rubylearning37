@@ -1,12 +1,11 @@
 #!/usr/bin/env ruby
-require File.expand_path('../../week2/prompt', __FILE__)
+require './prompt'
 
 def yelling? string
     string == string.upcase if string =~ /[a-z]|[A-Z]/
 end
 
 def talking_money? string
-  # string.index(%r/\$\d+/)
   string =~ /\$\d+/
 end
 
