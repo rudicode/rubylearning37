@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-  gem 'code2rubylearning',   :git => "https://github.com/rudicode/code2rubylearning.git", :branch => "master"
+  gem 'code2rubylearning',   "~> 0.1" 
   gem 'guard-rspec',         '1.2.1'
   gem 'rb-inotify',          '0.8.8'
   gem 'libnotify',           '0.8.0'

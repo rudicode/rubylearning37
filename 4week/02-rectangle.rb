@@ -12,7 +12,7 @@ puts "\nSetting new, length #{ rectangle.length } and width #{ rectangle.width }
 puts "Area is = %.4f" % rectangle.area
 puts "Perimeter is = %.4f" % rectangle.perimeter
 
-rectangle.update 5.0, 2.0
+rectangle.update 5, 2
 
 puts "\nUpdating to new length #{ rectangle.length } and width #{ rectangle.width }"
 puts "Area is = %.4f" % rectangle.area

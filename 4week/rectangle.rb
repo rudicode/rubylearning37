@@ -1,6 +1,7 @@
 class Rectangle
 
   attr_accessor :length, :width
+  attr_reader   :area, :perimeter
 
   def initialize length, width
     @length = length
@@ -11,14 +12,6 @@ class Rectangle
   def calculate
     @area = (@length * @width)
     @perimeter = (@length * 2 + @width * 2)
-  end
-
-  def area
-    @area
-  end
-
-  def perimeter
-    @perimeter
   end
 
   def length= num
