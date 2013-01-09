@@ -10,4 +10,4 @@ source 'https://rubygems.org'
   gem 'minitest-reporters'
   gem 'guard',               "~> 1.6.0"
   gem 'guard-minitest',      '0.5.0'
-  gem "green_shoes",         "~> 1.1.367"
+  #gem "green_shoes",         "~> 1.1.367"

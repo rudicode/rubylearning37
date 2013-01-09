@@ -102,7 +102,8 @@ class Playfair
 
   def create_cipher_string
     sanitized_key = sanitize(@key_phrase).gsub("J","I")
-    alpha_string  = "ABCDEFGHIKLMNOPQRSTUVWXYZ" # <== note missing J
+    # alpha_string  = "ABCDEFGHIKLMNOPQRSTUVWXYZ" # <== note missing J
+    alpha_string  = ('A'..'Z').to_a.join.sub(/J/, '')
     cipher_string = ""
 
     sanitized_key.each_char do |char|
