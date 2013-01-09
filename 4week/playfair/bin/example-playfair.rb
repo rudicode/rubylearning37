@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative('playfair')
+require('./lib/playfair')
 
 key = 'Playfair Example.'
 input_message = 'Hide the gold in the tree stump'

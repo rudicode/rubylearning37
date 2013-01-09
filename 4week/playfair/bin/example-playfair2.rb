@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative('playfair')
+require('./lib/playfair')
 
 @pf = Playfair.new("playfair example")
 

@@ -1,4 +1,4 @@
-require File.expand_path('../../playfair', __FILE__)
+require File.expand_path('../../lib/playfair', __FILE__)
 
 describe Playfair do
   before :each do

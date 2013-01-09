@@ -1,4 +1,4 @@
-require File.expand_path('../../roller', __FILE__)
+require File.expand_path('../../lib/roller', __FILE__)
 
 describe Roller do
   before :each do
