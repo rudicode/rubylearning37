@@ -4,7 +4,7 @@ GEM
     ansi (1.4.3)
     builder (3.1.4)
     clippy (1.0.1)
-    code2rubylearning (0.1.5)
+    code2rubylearning (0.1.6)
       clippy (~> 1.0.0)
     coderay (1.0.8)
     diff-lcs (1.1.3)
