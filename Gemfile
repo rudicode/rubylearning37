@@ -8,6 +8,7 @@ source 'https://rubygems.org'
   gem 'rubydoctest',         '1.1.3'
   gem 'pry' ,                '0.9.10'
   gem 'minitest-reporters'
+  gem 'minitest-matchers'
   gem 'guard',               "~> 1.6.0"
   gem 'guard-minitest',      '0.5.0'
   #gem "green_shoes",         "~> 1.1.367"
